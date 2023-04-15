@@ -1,27 +1,82 @@
 import React,{useState} from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate, Link } from 'react-router-dom';
 import axios from '../../utils/axios';
-import { schoolAdminSignup } from '../../utils/constants';
+import { urls, methods } from '../../utils/api';
+import { useSchoolAdminSignupMutation } from '../../api/schoolAdmin/apiSlice';
 
 const SignupForm = () => {
     const [showPassword, setShowPassword] = useState(false);
-
+    const [isSchoolNameTakenError,setIsSchoolNameTakenError] = useState(false);
+    const [isEmailTakenError,setIsEmailTakenError] = useState(false);
+    const [isPhoneTakenError,setIsPhoneTakenError] = useState(false);
+    const [signup, {isLoading}] = useSchoolAdminSignupMutation();
+    const navigate = useNavigate();
     const { 
         register,handleSubmit, watch, formState: { errors } 
     } = useForm();
 
 
-    const onSubmit = (data) =>{
+    const onSubmit = async (data) =>{
         console.log(register);
         console.log(data);
-
-        axios.post(schoolAdminSignup,data,{ headers: { "Content-Type":"application/json" }})
-        .then((response)=>{
-          console.log(response,'ressffoodjfaj');
-        })
-        .catch((err)=>{
-          console.log(err);
-        })
+        try{
+          const res = await signup(data).unwrap()
+        console.log(res);
+        navigate('/school_admin/login')
+        }
+        catch(error) {
+          console.log(error);
+          if(error.status === 409){
+            if(error.data.error === 'School Name Already Exist'){
+              setIsSchoolNameTakenError(true)
+              setTimeout(() => {
+                setIsSchoolNameTakenError(false);
+              }, 3000);
+            }
+            else if(error.data.error === 'Email Already Exist'){
+              setIsEmailTakenError(true)
+              setTimeout(() => {
+                setIsEmailTakenError(false);
+              }, 3000);
+            }
+            else if(error.data.error === 'Phone Already Exist'){
+              setIsPhoneTakenError(true)
+              setTimeout(() => {
+                setIsPhoneTakenError(false);
+              }, 3000);
+            }
+          }
+        }
+        
+        // axios.post(urls.schoolAdminSignup,data,{ headers: { "Content-Type":"application/json" }})
+        // .then((response)=>{
+        //   console.log(response,'ressffoodjfaj');
+        //   navigate('/school_admin/login')
+        // })
+        // .catch((err)=>{
+        //   console.log(err);
+        //   if(err.response.status === 409){
+        //     if(err.response.data.error === 'School Name Already Exist'){
+        //       setIsSchoolNameTakenError(true)
+        //       setTimeout(() => {
+        //         setIsSchoolNameTakenError(false);
+        //       }, 3000);
+        //     }
+        //     else if(err.response.data.error === 'Email Already Exist'){
+        //       setIsEmailTakenError(true)
+        //       setTimeout(() => {
+        //         setIsEmailTakenError(false);
+        //       }, 3000);
+        //     }
+        //     else if(err.response.data.error === 'Phone Already Exist'){
+        //       setIsPhoneTakenError(true)
+        //       setTimeout(() => {
+        //         setIsPhoneTakenError(false);
+        //       }, 3000);
+        //     }
+        //   }
+        // })
     }
 
     const toggleShowPassword = () => {
@@ -107,6 +162,14 @@ const SignupForm = () => {
             })}
               placeholder="Enter school name"
             />
+            {
+              isSchoolNameTakenError ?
+              <p className="text-xs italic text-red-500">
+              School name already exists
+              </p>
+              :
+              null
+             } 
               <p className="text-xs italic text-red-500">
               {errors.schoolName?.message}
               </p>
@@ -133,7 +196,15 @@ const SignupForm = () => {
                 })}
                 placeholder="Email ID"
               />
+              {
+              isEmailTakenError ?
               <p className="text-xs italic text-red-500">
+              Email already exists
+              </p>
+              :
+              null
+             } 
+              <p className="text-xs italic text-red-500"> 
               {errors.email?.message}
               </p>
             </div>
@@ -166,6 +237,14 @@ const SignupForm = () => {
                 })}
                 placeholder="+91 Phone Number"
               />
+               {
+              isPhoneTakenError ?
+              <p className="text-xs italic text-red-500">
+              Phone number already exists
+              </p>
+              :
+              null
+             }
               <p className="text-xs italic text-red-500">
               {errors.phone?.message}
               </p>
@@ -239,12 +318,12 @@ const SignupForm = () => {
             </a>
           </div> */}
           <div className="text-center">
-            <a
+            <Link
               className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-              href="./index.html"
+              to={'/school_admin/login'}
             >
               Already have an account?
-            </a>
+            </Link>
           </div>
         </form>
       </div>
