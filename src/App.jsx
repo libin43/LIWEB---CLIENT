@@ -37,6 +37,7 @@ const App = () => {
           <Route path='/school_admin/otp' element={<OtpVerificationPage/>}/>
 
           <Route element={<ProtectedRoutes/>}>
+            
             <Route element={<HomePage/>} path='/school_admin/home' exact />
             <Route element={<DashboardPage/>} path='/school_admin/dashboard' exact />
             <Route element={<AddFacultyPage/>} path='/school_admin/addFaculty' exact />

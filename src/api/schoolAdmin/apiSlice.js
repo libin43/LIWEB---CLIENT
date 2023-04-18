@@ -11,6 +11,7 @@ const baseQuery = fetchBaseQuery({
 export const schoolAdminApiSlice = createApi({
     reducerPath: 'api',
     baseQuery,
+    tagTypes: ['schoolAdmin', 'faculty'],
     endpoints: (build) => ({
         schoolAdminSignup: build.mutation({
             query: (data) => ({
@@ -39,6 +40,17 @@ export const schoolAdminApiSlice = createApi({
                 method: 'POST',
                 body: data,
             })
+        }),
+        addFaculty: build.mutation({
+            query: (data) => ({
+                url: '/faculty/addFaculty',
+                method: 'POST',
+                body: data,
+            })
+        }),
+        getFacultyDropDown: build.query({
+            query: () => '/faculty/getFaculty',
+            providesTags: ['schoolAdmin','faculty']
         })
     })
 })
@@ -48,4 +60,6 @@ export const {
     useSchoolAdminLoginMutation,
     useVerifyEmailForOtpMutation,
     useVerifyOtpMutation,
+    useAddFacultyMutation,
+    useGetFacultyDropDownQuery,
 } = schoolAdminApiSlice
