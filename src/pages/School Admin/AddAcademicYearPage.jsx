@@ -1,16 +1,17 @@
 import React from 'react'
 import Sidebar from '../../components/schoolAdmin/Sidebar'
-import AddFaculty from '../../components/schoolAdmin/AddFaculty'
+import AddAcademicYear from '../../components/schoolAdmin/AddAcademicYear'
 import NavbarAdmin from '../../components/schoolAdmin/NavbarAdmin'
 
-const AddFacultyPage = () => {
+
+const AddAcademicYearPage = () => {
   return (
     <div>
         <NavbarAdmin></NavbarAdmin>
         <Sidebar></Sidebar>
-        <AddFaculty></AddFaculty>
+        <AddAcademicYear></AddAcademicYear>
     </div>
   )
 }
 
-export default AddFacultyPage
+export default AddAcademicYearPage

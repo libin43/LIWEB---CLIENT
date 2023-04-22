@@ -4,7 +4,8 @@ import { baseUrl } from '../constants'
 const baseQuery = fetchBaseQuery({
     baseUrl: baseUrl,
     prepareHeaders: (headers) => {
-        headers.set('Content-Type', 'application/json');
+        headers.set('Authorization', `Bearer ${localStorage.getItem('adminToken')}`);
+        headers.set('Content-Type', 'application/json')
         return headers;
     }
 })
@@ -25,7 +26,8 @@ export const schoolAdminApiSlice = createApi({
                 url: '/auth/school_admin/login',
                 method: 'POST',
                 body: data,
-            })
+            }),
+            invalidatesTags: ['schoolAdmin'],
         }),
         verifyEmailForOtp: build.mutation({
             query: (data) => ({
@@ -51,7 +53,14 @@ export const schoolAdminApiSlice = createApi({
         getFacultyDropDown: build.query({
             query: () => '/faculty/getFaculty',
             providesTags: ['schoolAdmin','faculty']
-        })
+        }),
+        addAcademicYear: build.mutation({
+            query: (data) => ({
+                url: '/school_admin/addAcademicYear',
+                method: 'POST',
+                body: data,
+            })
+        }),
     })
 })
 
@@ -62,4 +71,5 @@ export const {
     useVerifyOtpMutation,
     useAddFacultyMutation,
     useGetFacultyDropDownQuery,
+    useAddAcademicYearMutation,
 } = schoolAdminApiSlice

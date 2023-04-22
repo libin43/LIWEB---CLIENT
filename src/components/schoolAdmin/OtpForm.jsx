@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
-import axios from '../../utils/axios';
-import {urls} from '../../utils/api'
+
 import { useVerifyEmailForOtpMutation, useVerifyOtpMutation } from '../../api/schoolAdmin/apiSlice';
 
 const OtpForm = () => {

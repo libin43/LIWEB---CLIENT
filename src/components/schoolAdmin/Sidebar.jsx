@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const menus = [
     { name: "Dashboard", link: "/", icon: MdOutlineDashboard },
-    { name: "Academic year & Semester Management", link: "/", icon: AiOutlineUser },
+    { name: "Academic Year Management", link: "/school_admin/addAcademicYear", icon: AiOutlineUser },
     { name: "Faculty Management", link: "/school_admin/addFaculty", icon: FiMessageSquare },
     { name: "Classroom Management", link: "/school_admin/addClassroom", icon: TbReportAnalytics, margin: true },
     { name: "Student Management", link: "/school_admin/addStudent", icon: FiFolder },

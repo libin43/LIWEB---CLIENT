@@ -1,8 +1,7 @@
 import React,{useState} from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom';
-import axios from '../../utils/axios';
-import { urls, methods } from '../../utils/api';
+
 import { useSchoolAdminSignupMutation } from '../../api/schoolAdmin/apiSlice';
 
 const SignupForm = () => {
