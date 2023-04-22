@@ -9,11 +9,10 @@ const AddFaculty = () => {
     const [addFaculty, {isLoading, isError}] = useAddFacultyMutation();
 
     const { 
-        register,handleSubmit, watch, formState: { errors } 
+        register,handleSubmit, watch, formState: { errors }
     } = useForm();
 
     const onSubmit = async (data) => {
-        console.log('on sugmit called in faculty');
         console.log(data);
         try{
             const res = await addFaculty(data).unwrap()

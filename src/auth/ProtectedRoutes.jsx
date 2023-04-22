@@ -1,16 +1,16 @@
 import React from 'react'
 import { Outlet, Navigate} from 'react-router-dom'
 
-const ProtectedRoutes = () => {
+const ProtectedRoutes = (props) => {
     console.log('calling in  protected routes');
     
-    const auth = localStorage.getItem('token')
+    const auth = localStorage.getItem('schoolAdminToken')
     console.log(auth);
 
     return (
         <React.Fragment>
             {
-        auth ? <Outlet/> : <Navigate to={'/school_admin/login'} />
+        auth ? <Outlet/> : <Navigate to={`/${props.role}/login`} />
             }
         </React.Fragment>
     )
