@@ -4,7 +4,7 @@ import { baseUrl } from '../constants'
 const baseQuery = fetchBaseQuery({
     baseUrl: baseUrl,
     prepareHeaders: (headers) => {
-        headers.set('Authorization', `Bearer ${localStorage.getItem('adminToken')}`);
+        headers.set('authorization', `Bearer ${localStorage.getItem('schoolAdminToken')}`);
         headers.set('Content-Type', 'application/json')
         return headers;
     }
@@ -12,7 +12,7 @@ const baseQuery = fetchBaseQuery({
 export const schoolAdminApiSlice = createApi({
     reducerPath: 'api',
     baseQuery,
-    tagTypes: ['schoolAdmin', 'faculty'],
+    tagTypes: ['schoolAdmin', 'faculty', 'academicYear', 'class'],
     endpoints: (build) => ({
         schoolAdminSignup: build.mutation({
             query: (data) => ({
@@ -43,23 +43,37 @@ export const schoolAdminApiSlice = createApi({
                 body: data,
             })
         }),
+        getSchoolAdminInfo: build.query({
+            query: () => '/school_admin/getInfo',
+            providesTags: ['schoolAdmin']
+        }),
         addFaculty: build.mutation({
             query: (data) => ({
                 url: '/faculty/addFaculty',
                 method: 'POST',
                 body: data,
-            })
+            }),
+            invalidatesTags: ['faculty'],
         }),
-        getFacultyDropDown: build.query({
-            query: () => '/faculty/getFaculty',
-            providesTags: ['schoolAdmin','faculty']
+        getFacultyAcademicYearDropDown: build.query({
+            query: () => '/faculty/get_faculty_academic_year',
+            providesTags: ['faculty','academicYear']
         }),
         addAcademicYear: build.mutation({
             query: (data) => ({
                 url: '/school_admin/addAcademicYear',
                 method: 'POST',
                 body: data,
-            })
+            }),
+            invalidatesTags: ['academicYear'],
+        }),
+        addClass: build.mutation({
+            query: (data) => ({
+                url: '/school_admin/add_class',
+                method: 'POST',
+                body: data,
+            }),
+            invalidatesTags: ['class'],
         }),
     })
 })
@@ -70,6 +84,8 @@ export const {
     useVerifyEmailForOtpMutation,
     useVerifyOtpMutation,
     useAddFacultyMutation,
-    useGetFacultyDropDownQuery,
+    useGetFacultyAcademicYearDropDownQuery,
     useAddAcademicYearMutation,
+    useGetSchoolAdminInfoQuery,
+    useAddClassMutation,
 } = schoolAdminApiSlice

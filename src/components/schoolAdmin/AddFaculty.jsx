@@ -2,10 +2,12 @@ import React,{useState} from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom'
 import { useAddFacultyMutation } from '../../api/schoolAdmin/apiSlice';
+import {toast} from 'react-toastify';
 
 const AddFaculty = () => {
     const [isEmailTakenError,setIsEmailTakenError] = useState(false);
     const [isPhoneTakenError,setIsPhoneTakenError] = useState(false);
+    const navigate = useNavigate();
     const [addFaculty, {isLoading, isError}] = useAddFacultyMutation();
 
     const { 
@@ -15,12 +17,28 @@ const AddFaculty = () => {
     const onSubmit = async (data) => {
         console.log(data);
         try{
-            const res = await addFaculty(data).unwrap()
+            const res = await addFaculty(data).unwrap();
             console.log(res);
+            if(res.success){
+                toast.success('faculty added!', {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    });
+            }
         }
         catch (error) {
             console.log(error);
-            if(error.status === 409){
+            if(error.status === 401){
+                localStorage.removeItem('schoolAdminToken')
+                navigate('/school_admin/login')
+            }
+            else if(error.status === 409){
                 if(error.data.error === 'Email Already Exist'){
                   setIsEmailTakenError(true)
                   setTimeout(() => {
