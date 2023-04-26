@@ -10,17 +10,17 @@ export const schoolAdminSlice = createSlice({
     name: 'schoolAdmin',
     initialState,
     reducers: {
-        setSchoolAdminLogin: (state, action) => {
+        setSchoolAdminInfo: (state, action) => {
             console.log(action,'hit in reducer');
-            localStorage.setItem('schoolAdminToken', action.payload.token)
-            state.schoolAdminName = action.payload.name
+            // localStorage.setItem('schoolAdminToken', action.payload.token)
+            state.schoolAdminName = action.payload.schoolAdminName
             state.schoolName = action.payload.schoolName
             state.role = action.payload.role
         },
     },
 })
 
-export const { setSchoolAdminLogin } = schoolAdminSlice.actions
+export const { setSchoolAdminInfo } = schoolAdminSlice.actions
 
 export const schoolAdminReducer =  schoolAdminSlice.reducer
 

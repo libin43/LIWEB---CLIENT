@@ -3,10 +3,14 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { useAddAcademicYearMutation } from '../../api/schoolAdmin/apiSlice';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import {toast} from 'react-toastify';
+
 
 const AddAcademicYear = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate,setEndDate] = useState(new Date());
+    const navigate = useNavigate();
     const schoolName = useSelector(state => state.schoolAdmin.schoolName)
     const [addAcademicYear, {isLoading, isError}] = useAddAcademicYearMutation();
     const customFormat = "dd.MM.yyyy";
@@ -22,9 +26,25 @@ const AddAcademicYear = () => {
     try{
         const res = await addAcademicYear(data).unwrap()
         console.log(res);
+        toast.success('academic year added!', {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            });
     }
     catch (error) {
         console.log(error);
+        if(error.status === 401){
+            console.log('Need to logout');
+            localStorage.removeItem('setAdminToken')
+            navigate('/school_admin/login')
+
+        }
     }
   } else {
     console.log('Select valid start date and end date');

@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 import { useSchoolAdminLoginMutation } from '../../api/schoolAdmin/apiSlice';
 import { useDispatch } from 'react-redux';
-import { setSchoolAdminLogin } from '../../redux/reducers/schoolAdminSlice';
+import { setSchoolAdminInfo } from '../../redux/reducers/schoolAdminSlice';
+import {toast} from 'react-toastify';
 
 const LoginForm = () => {
 
@@ -22,17 +23,28 @@ const LoginForm = () => {
 
   const data = JSON.stringify({ email, password });
 
+
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
     try {
       const res = await login(data).unwrap()
-      console.log(res);
-
+      console.log(res,'its response from login');
       if (res.success) {
-       dispatch(setSchoolAdminLogin(res))
+        localStorage.setItem('schoolAdminToken',res.token)
+        toast.success(' signin success!', {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+       dispatch(setSchoolAdminInfo(res))
         navigate('/school_admin/home');
-
       }
     }
     catch (error) {
