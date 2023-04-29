@@ -12,7 +12,7 @@ const baseQuery = fetchBaseQuery({
 export const schoolAdminApiSlice = createApi({
     reducerPath: 'api',
     baseQuery,
-    tagTypes: ['schoolAdmin', 'faculty', 'academicYear', 'class'],
+    tagTypes: ['schoolAdmin', 'faculty', 'academicYear', 'class', 'student'],
     endpoints: (build) => ({
         schoolAdminSignup: build.mutation({
             query: (data) => ({
@@ -56,8 +56,20 @@ export const schoolAdminApiSlice = createApi({
             invalidatesTags: ['faculty'],
         }),
         getFacultyAcademicYearDropDown: build.query({
-            query: () => '/faculty/get_faculty_academic_year',
-            providesTags: ['faculty','academicYear']
+            query: () => '/school_admin/get_faculty_academic_year',
+            providesTags: ['schoolAdmin','faculty','academicYear']
+        }),
+        getAcademicYear: build.query({
+            query: () => '/school_admin/get_academic_year',
+            providesTags: ['schoolAdmin','academicYear']
+        }),
+        getClassByAcademicYear: build.mutation({
+            query: (data) => ({
+                url: '/school_admin/get_class_room',
+                method: 'POST',
+                body: data,
+            }),
+            invalidatesTags: ['schoolAdmin','academicYear','class'],
         }),
         addAcademicYear: build.mutation({
             query: (data) => ({
@@ -75,6 +87,14 @@ export const schoolAdminApiSlice = createApi({
             }),
             invalidatesTags: ['class'],
         }),
+        addStudent: build.mutation({
+            query: (data) => ({
+                url: '/student/add_student',
+                method: 'POST',
+                body: data,
+            }),
+            invalidatesTags: ['student'],
+        })
     })
 })
 
@@ -85,7 +105,10 @@ export const {
     useVerifyOtpMutation,
     useAddFacultyMutation,
     useGetFacultyAcademicYearDropDownQuery,
+    useGetAcademicYearQuery,
+    useGetClassByAcademicYearMutation,
     useAddAcademicYearMutation,
     useGetSchoolAdminInfoQuery,
     useAddClassMutation,
+    useAddStudentMutation,
 } = schoolAdminApiSlice

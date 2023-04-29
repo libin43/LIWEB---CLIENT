@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router'
 import { Navbar } from 'flowbite-react'
 import { Dropdown } from 'flowbite-react'
 import { Avatar } from 'flowbite-react'
@@ -6,6 +7,11 @@ import { useGetSchoolAdminInfoQuery } from '../../api/schoolAdmin/apiSlice'
 
 const NavbarAdmin = () => {
   const {data, isLoading, isError} = useGetSchoolAdminInfoQuery();
+  const navigate = useNavigate();
+  const handleSignOutClick = () => {
+    localStorage.removeItem('schoolAdminToken');
+    navigate('/school_admin/login');
+  }
   
   if(isLoading){
     return (
@@ -54,10 +60,13 @@ const NavbarAdmin = () => {
       </div>
     )
   }
-  if(isError){
+  else if(isError){
     console.log('error is there in navbar data fetching');
+    localStorage.removeItem('adminToken');
+    navigate('/school_admin/login')
+
   }
-  if(data){
+  else if(data){
     console.log(data, 'data of navbar');
     return (
       <div>
@@ -102,7 +111,7 @@ const NavbarAdmin = () => {
         Earnings
       </Dropdown.Item>
       <Dropdown.Divider />
-      <Dropdown.Item>
+      <Dropdown.Item onClick={handleSignOutClick}>
         Sign out
       </Dropdown.Item>
     </Dropdown>

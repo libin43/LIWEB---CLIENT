@@ -8,14 +8,28 @@ import {toast} from 'react-toastify';
 
 
 const AddAcademicYear = () => {
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate,setEndDate] = useState(new Date());
+    const [startDate, setStartDate] = useState('');
+    const [endDate,setEndDate] = useState('');
     const navigate = useNavigate();
     const schoolName = useSelector(state => state.schoolAdmin.schoolName)
-    const [addAcademicYear, {isLoading, isError}] = useAddAcademicYearMutation();
+    const [addAcademicYear, {isLoading}] = useAddAcademicYearMutation();
     const customFormat = "dd.MM.yyyy";
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        if (!startDate && !endDate) {
+            // Show an error message if no date has been selected
+            toast.warn('Input fields cannot be empty', {
+                position: "bottom-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
+            return;
+          }
         const data = {'startDate': startDate, 'endDate' : endDate, 'schoolName': schoolName}
         console.log(data);
         const startMs = startDate.getTime();
@@ -26,6 +40,7 @@ const AddAcademicYear = () => {
     try{
         const res = await addAcademicYear(data).unwrap()
         console.log(res);
+       if(res.success){
         toast.success('academic year added!', {
             position: "bottom-center",
             autoClose: 5000,
@@ -36,6 +51,7 @@ const AddAcademicYear = () => {
             progress: undefined,
             theme: "dark",
             });
+       }
     }
     catch (error) {
         console.log(error);
@@ -87,6 +103,7 @@ const AddAcademicYear = () => {
                               <label
                                   htmlFor="class_name"
                                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                                  
                               >
                                   Start Date
                               </label>
@@ -96,14 +113,17 @@ const AddAcademicYear = () => {
                                         onChange={(date) => setStartDate(date)}
                                         dateFormat={customFormat}
                                         customInput={<input />}
+                                        isClearable
                                         showYearDropdown
                                         scrollableMonthYearDropdown
                                         showMonthDropdown
                                         withPortal
+                                        placeholderText='dd.mm.yy'
+                                        
                                     />
                         
                                <p className="text-xs italic text-red-500">
-                                
+                               {!startDate && <p>Please select a date</p>}
                                </p>
                           </div>
 
@@ -120,13 +140,15 @@ const AddAcademicYear = () => {
                                         onChange={(date) => setEndDate(date)}
                                         dateFormat={customFormat}
                                         customInput={<input />}
+                                        isClearable
                                         showYearDropdown
                                         scrollableMonthYearDropdown
                                         showMonthDropdown
                                         withPortal
+                                        placeholderText='dd.mm.yy'
                                     />
                                <p className="text-xs italic text-red-500">
-                                 
+                               {!endDate && <p>Please select a date</p>}
                                </p>
                           </div>
 

@@ -16,6 +16,18 @@ const AddClassRoom = () => {
         try{
             const res = await addClass(data).unwrap()
             console.log(res);
+            if(res.success){
+                toast.success('class room added!', {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    });
+            }
         }
         catch (error) {
             console.log(error);
@@ -72,7 +84,6 @@ const AddClassRoom = () => {
                         d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
                         clipRule="evenodd"
                       />
-        
                       </svg>
                       {
                     <form onSubmit={handleSubmit(onSubmit)}>
