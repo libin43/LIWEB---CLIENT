@@ -14,9 +14,9 @@ const Home = () => {
     { name: "Faculty Management", link: "/school_admin/addFaculty", icon: FiMessageSquare },
     { name: "Classroom Management", link: "/school_admin/addClassroom", icon: TbReportAnalytics, margin: true },
     { name: "Student Management", link: "/school_admin/addStudent", icon: FiFolder },
-    { name: "Cart", link: "/", icon: FiShoppingCart },
-    { name: "Saved", link: "/", icon: AiOutlineHeart, margin: true },
-    { name: "Setting", link: "/", icon: RiSettings4Line },
+    // { name: "Cart", link: "/", icon: FiShoppingCart },
+    // { name: "Saved", link: "/", icon: AiOutlineHeart, margin: true },
+    // { name: "Setting", link: "/", icon: RiSettings4Line },
   ];
   const [open, setOpen] = useState(false);
   return (
