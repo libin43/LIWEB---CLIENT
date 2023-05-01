@@ -94,6 +94,13 @@ export const schoolAdminApiSlice = createApi({
                 body: data,
             }),
             invalidatesTags: ['student'],
+        }),
+        addSubject: build.mutation({
+            query: (data) => ({
+                url: '/school_admin/add_subject',
+                method: 'POST',
+                body: data
+            })
         })
     })
 })
@@ -111,4 +118,5 @@ export const {
     useGetSchoolAdminInfoQuery,
     useAddClassMutation,
     useAddStudentMutation,
+    useAddSubjectMutation,
 } = schoolAdminApiSlice

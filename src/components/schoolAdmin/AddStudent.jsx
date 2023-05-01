@@ -9,6 +9,7 @@ const AddStudent = () => {
     const {data:academicYearData, isLoading: isLoadingAcademicYearData, isError:isAcademicYearError, error} = useGetAcademicYearQuery();
     const [fetchClass,{isLoading: isFetchingClasses}] = useGetClassByAcademicYearMutation();
     const [addStudent, {isLoading}] = useAddStudentMutation();
+    const navigate = useNavigate()
   const { 
     register,handleSubmit, formState: { errors } 
 } = useForm();
@@ -23,7 +24,22 @@ const handleYearChange = async (event) => {
         }
     }
     catch (error) {
-        console.log(error);
+        console.log(error, 'fetch class error');
+        if(error.status === 401){
+            console.log('toast in addstudent calling');
+            toast.warn('Unauthorized Access', {
+                position: "bottom-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                })
+                localStorage.removeItem('schoolAdminToken');
+                navigate('/school_admin/login')
+        }
     }
 }
 
@@ -86,6 +102,21 @@ if(isLoadingAcademicYearData){
 
 else if(isAcademicYearError){
     console.log(error,'Academic year fetch error');
+    if(error.status === 401){
+        console.log('toast in addstudent calling');
+        toast.warn('Unauthorized Access', {
+            position: "bottom-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            })
+            localStorage.removeItem('schoolAdminToken');
+            navigate('/school_admin/login')
+    }
 }
 
 else if(academicYearData || setClassRoom.length!=0){

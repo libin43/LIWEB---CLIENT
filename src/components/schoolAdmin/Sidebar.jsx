@@ -9,12 +9,13 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   const menus = [
-    { name: "Dashboard", link: "/", icon: MdOutlineDashboard },
+    // { name: "Dashboard", link: "/", icon: MdOutlineDashboard },
     { name: "Academic Year Management", link: "/school_admin/addAcademicYear", icon: AiOutlineUser },
     { name: "Faculty Management", link: "/school_admin/addFaculty", icon: FiMessageSquare },
     { name: "Classroom Management", link: "/school_admin/addClassroom", icon: TbReportAnalytics, margin: true },
     { name: "Student Management", link: "/school_admin/addStudent", icon: FiFolder },
-    // { name: "Cart", link: "/", icon: FiShoppingCart },
+    { name: "Subject Management", link: "/school_admin/add_subject", icon: FiShoppingCart },
+    { name: "Exam Management", link: "/school_admin/add_exam", icon: FiShoppingCart },
     // { name: "Saved", link: "/", icon: AiOutlineHeart, margin: true },
     // { name: "Setting", link: "/", icon: RiSettings4Line },
   ];

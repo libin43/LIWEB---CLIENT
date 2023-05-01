@@ -4,9 +4,10 @@ import { Navbar } from 'flowbite-react'
 import { Dropdown } from 'flowbite-react'
 import { Avatar } from 'flowbite-react'
 import { useGetSchoolAdminInfoQuery } from '../../api/schoolAdmin/apiSlice'
+import {toast} from 'react-toastify';
 
 const NavbarAdmin = () => {
-  const {data, isLoading, isError} = useGetSchoolAdminInfoQuery();
+  const {data, isLoading, isError, error} = useGetSchoolAdminInfoQuery();
   const navigate = useNavigate();
   const handleSignOutClick = () => {
     localStorage.removeItem('schoolAdminToken');
@@ -61,9 +62,20 @@ const NavbarAdmin = () => {
     )
   }
   else if(isError){
-    console.log('error is there in navbar data fetching');
-    localStorage.removeItem('adminToken');
-    navigate('/school_admin/login')
+    if(error.status === 401){
+      toast.warn('Unauthorized Access', {
+          position: "bottom-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          })
+          localStorage.removeItem('schoolAdminToken');
+          navigate('/school_admin/login')
+  }
 
   }
   else if(data){
@@ -82,7 +94,7 @@ const NavbarAdmin = () => {
       />
 
       
-      <span className="self-center whitespace-nowrap text-xl ml-8 font-semibold dark:text-white">
+      <span className="self-center whitespace-nowrap text-lg ml-8 font-semibold dark:text-white">
           {data.data.schoolName}
       </span>
      
