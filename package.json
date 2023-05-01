@@ -14,6 +14,7 @@
     "dotenv": "^16.0.3",
     "flowbite": "^1.6.5",
     "flowbite-react": "^0.4.3",
+    "multiselect-react-dropdown": "^2.0.25",
     "react": "^18.2.0",
     "react-datepicker": "^4.11.0",
     "react-dom": "^18.2.0",

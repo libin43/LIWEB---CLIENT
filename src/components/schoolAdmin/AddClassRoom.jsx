@@ -10,6 +10,7 @@ const AddClassRoom = () => {
     const {
         register,handleSubmit, watch, formState: { errors } 
     } = useForm();
+    const navigate = useNavigate();
     const onSubmit = async (data) => {
         console.log('on sugmit called in student');
         console.log(data);
@@ -46,7 +47,6 @@ const AddClassRoom = () => {
             
         }
     }
-    const navigate = useNavigate();
     if(isLoadingData || isLoadingResponse){
         return(
             <div>

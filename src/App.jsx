@@ -18,6 +18,7 @@ import DashboardPage from './pages/School Admin/DashboardPage'
 import AddFacultyPage from './pages/School Admin/AddFacultyPage'
 import AddClassRoomPage from './pages/School Admin/AddClassRoomPage'
 import AddAcademicYearPage from './pages/School Admin/AddAcademicYearPage'
+import AddSubjectPage from './pages/School Admin/AddSubjectPage'
 
 const App = () => {
 
@@ -41,6 +42,7 @@ const App = () => {
             <Route element={<AddStudentPage/>} path='/school_admin/addStudent' exact/>
             <Route element={<AddClassRoomPage/>} path='/school_admin/addClassroom' exact/>
             <Route element={<AddAcademicYearPage/>} path='/school_admin/addAcademicYear' exact/>
+            <Route element={<AddSubjectPage/>} path='/school_admin/add_subject' exact/>
           </Route>
 
 
