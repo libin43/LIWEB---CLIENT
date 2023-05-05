@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom'
-import { useAddClassMutation, useGetFacultyAcademicYearDropDownQuery } from '../../api/schoolAdmin/apiSlice';
+import { useAddClassMutation, useGetFacultyAcademicYearDropDownQuery } from '../../../api/schoolAdmin/apiSlice';
 import {toast} from 'react-toastify';
 
 const AddClassRoom = () => {
@@ -32,7 +32,21 @@ const AddClassRoom = () => {
         }
         catch (error) {
             console.log(error);
-            if(error.status === 409){
+            if(error.status === 401){
+                localStorage.removeItem('schoolAdminToken');
+                toast.warn('Unauthorized Access', { 
+                    position: "bottom-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    });
+                    navigate('/school_admin/login');
+            }
+            else if(error.status === 409){
                 toast.error('Class-room already exists!', {
                     position: "bottom-center",
                     autoClose: 5000,
@@ -62,8 +76,20 @@ const AddClassRoom = () => {
     }
     else if(isError){
         console.log(error,'in addclassroom');
-        localStorage.removeItem('schoolAdminToken');
-        navigate('/school_admin/login');
+        if(error.status === 401){
+            localStorage.removeItem('schoolAdminToken');
+            toast.warn('Unauthorized Access', {
+                position: "bottom-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
+                navigate('/school_admin/login');
+        }
     }
     else if(data){
         console.log(data, 'add classroom');

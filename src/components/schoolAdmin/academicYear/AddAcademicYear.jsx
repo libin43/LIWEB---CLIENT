@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import { useAddAcademicYearMutation } from '../../api/schoolAdmin/apiSlice';
+import { useAddAcademicYearMutation } from '../../../api/schoolAdmin/apiSlice';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify';

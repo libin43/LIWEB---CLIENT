@@ -1,51 +1,31 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { useAddSubjectMutation,useGetClassByAcademicYearMutation , useGetFacultyAcademicYearDropDownQuery } from '../../api/schoolAdmin/apiSlice';
+import { useAddSubjectMutation,  useGetClassByAcademicYearQuery,  useGetFacultyAcademicYearDropDownQuery } from '../../../api/schoolAdmin/apiSlice';
 import { useNavigate } from 'react-router-dom';
 import Multiselect from 'multiselect-react-dropdown';
 import { Spinner } from 'flowbite-react';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const AddSubject = () => {
+    const [skip, setSkip] = useState(true)
+    const [academicYearID, setAcademicYearID] = useState(null)
     const [classRoom, setClassRoom] = useState([])
     const [selectedClass, setSelectedClass] = useState([])
     const [selectClassError,setSelectClassError] = useState(false)
-    const {data, isLoading: isLoadingData, isError, error} = useGetFacultyAcademicYearDropDownQuery();
-    const [fetchClass,{isLoading: isFetchingClasses}] = useGetClassByAcademicYearMutation();
+    const {data, isLoading: isLoadingDropDown, isError: isFetchAcademicYearError, error: academicYearError} = useGetFacultyAcademicYearDropDownQuery();
+    const {data: classData, isLoading: isFetchingClasses, isError: isFetchClassError, error: classError} = useGetClassByAcademicYearQuery(academicYearID,{skip});
     const [addSubject, {isLoading: isLoadingResponse}] = useAddSubjectMutation();
     const navigate = useNavigate();
     const { 
-        register,handleSubmit, watch, formState: { errors }
+        register,handleSubmit, formState: { errors }
     } = useForm();
 
     const handleYearChange = async (event) => {
-        const data = {academicYearID: event.target.value}
-        try{
-            const res = await fetchClass(data).unwrap();
-            if(res.success){
-                console.log(res);
-                setClassRoom(res.classRoom)
-                console.log(classRoom, 'class fetch success');
-            }
-        }
-        catch (error) {
-            console.log(error);
-            if(error.status === 401){
-                toast.warn('Unauthorized Access', {
-                    position: "bottom-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                    })
-                    localStorage.removeItem('schoolAdminToken');
-                    navigate('/school_admin/login')
-            }
-        }
+        setSelectedClass([]);
+        setAcademicYearID(event.target.value);
+        setSkip(false);
     }
+
 
     if(Object.keys(errors).length!=0) {
         if ('vibrate' in navigator) {
@@ -55,6 +35,7 @@ const AddSubject = () => {
            console.log('no vibration');
           }
     }
+
     const onSubmit = async (data) => {
         if(selectedClass.length === 0){
             setSelectClassError(true)
@@ -67,8 +48,22 @@ const AddSubject = () => {
         try{
             const res = await addSubject(subject).unwrap()
             console.log(res);
+            if(res.success){
+                setSkip(true)
+                toast.success(res.message, {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    });
+            }
         }
         catch (error) {
+            setSelectedClass([]);
             console.log(error);
             if(error.status === 401){
                 toast.warn('Unauthorized Access', {
@@ -80,11 +75,12 @@ const AddSubject = () => {
                     draggable: true,
                     progress: undefined,
                     theme: "dark",
-                    })
+                    }),
                     localStorage.removeItem('schoolAdminToken');
                     navigate('/school_admin/login')
             }
             else if(error.status === 404){
+                setAcademicYearID(null)
                 toast.error(error.data.error, {
                     position: "bottom-center",
                     autoClose: 5000,
@@ -111,7 +107,7 @@ const AddSubject = () => {
         }
     }
 
-    if(isLoadingData || isLoadingResponse){
+    if(isLoadingDropDown || isLoadingResponse){
         return(
             <div>
                 <div role="status" className='flex justify-center items-center h-screen'>
@@ -124,11 +120,32 @@ const AddSubject = () => {
             </div>
         )
     }
-    else if(isError){
-        console.log(error,'in add subject');
-        localStorage.removeItem('schoolAdminToken');
-        navigate('/school_admin/login');
+    else if(isFetchAcademicYearError || isFetchClassError){
+        console.log(academicYearError,'hello');
+        console.log(classError,'hai');
+            if(academicYearError?.status === 401 || classError?.status === 401){
+                console.log('error in fetching called in subject');
+                toast.warn('Unauthorized Access', {
+                    position: "bottom-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    })
+                    localStorage.removeItem('schoolAdminToken');
+                    navigate('/school_admin/login')
+            }
     }
+
+    else if(classData){
+        setSkip(true)
+        console.log(classData, 'class fetch in addSubject');
+        setClassRoom(classData.classRoom)
+    }
+    
     else if (data){
         return (
             <div className='addSubject'>
@@ -252,6 +269,7 @@ const AddSubject = () => {
                                         showCheckbox
                                         onRemove={(e) => setSelectedClass(e)}
                                         onSelect={(e) => setSelectedClass(e)}
+
                                         showArrow
                                         style={{
                                           searchBox: {
