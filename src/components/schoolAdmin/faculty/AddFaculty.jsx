@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom'
-import { useAddFacultyMutation } from '../../api/schoolAdmin/apiSlice';
+import { useAddFacultyMutation } from '../../../api/schoolAdmin/apiSlice';
 import {toast} from 'react-toastify';
 
 const AddFaculty = () => {

@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router'
 import { Navbar } from 'flowbite-react'
 import { Dropdown } from 'flowbite-react'
 import { Avatar } from 'flowbite-react'
-import { useGetSchoolAdminInfoQuery } from '../../api/schoolAdmin/apiSlice'
-import {toast} from 'react-toastify';
+import {toast} from 'react-toastify'
+import { useGetSchoolAdminDataQuery } from '../../api/schoolAdmin/apiSlice'
+
 
 const NavbarAdmin = () => {
-  const {data, isLoading, isError, error} = useGetSchoolAdminInfoQuery();
+  const {data, isLoading, isError, error} = useGetSchoolAdminDataQuery();
   const navigate = useNavigate();
   const handleSignOutClick = () => {
     localStorage.removeItem('schoolAdminToken');
@@ -63,6 +64,7 @@ const NavbarAdmin = () => {
   }
   else if(isError){
     if(error.status === 401){
+      console.log('toast called in navbar');
       toast.warn('Unauthorized Access', {
           position: "bottom-center",
           autoClose: 2000,

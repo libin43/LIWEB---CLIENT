@@ -13,7 +13,7 @@ const LoginForm = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [login, { error }] = useSchoolAdminLoginMutation();
+  const [login] = useSchoolAdminLoginMutation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -43,7 +43,6 @@ const LoginForm = () => {
           progress: undefined,
           theme: "dark",
           });
-       dispatch(setSchoolAdminInfo(res))
         navigate('/school_admin/home');
       }
     }

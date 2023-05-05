@@ -1,7 +1,7 @@
 import React from 'react'
-import Sidebar from '../../components/schoolAdmin/Sidebar'
-import AddStudent from '../../components/schoolAdmin/AddStudent'
-import NavbarAdmin from '../../components/schoolAdmin/NavbarAdmin'
+import Sidebar from '../../../components/schoolAdmin/Sidebar'
+import NavbarAdmin from '../../../components/schoolAdmin/NavbarAdmin'
+import AddStudent from '../../../components/schoolAdmin/student/AddStudent'
 
 const AddStudentPage = () => {
   return (

@@ -1,46 +1,24 @@
 import React, {useState} from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom'
-import { useAddStudentMutation, useGetAcademicYearQuery, useGetClassByAcademicYearMutation } from '../../api/schoolAdmin/apiSlice';
+import { useAddStudentMutation, useGetAcademicYearQuery, useGetClassByAcademicYearQuery } from '../../../api/schoolAdmin/apiSlice';
 import {toast} from 'react-toastify';
 
 const AddStudent = () => {
+    const [skip, setSkip] = useState(true)
+    const [academicYearID, setAcademicYearID] = useState(null)
     const [classRoom, setClassRoom] = useState([])
-    const {data:academicYearData, isLoading: isLoadingAcademicYearData, isError:isAcademicYearError, error} = useGetAcademicYearQuery();
-    const [fetchClass,{isLoading: isFetchingClasses}] = useGetClassByAcademicYearMutation();
+    const {data:academicYearData, isLoading: isLoadingAcademicYearData, isError:isAcademicYearError, error: academicYearError} = useGetAcademicYearQuery();
+    const {data: fetchClass, isLoading: isFetchingClasses, isError: isFetchClassError, error: classError} = useGetClassByAcademicYearQuery(academicYearID,{skip});
+
     const [addStudent, {isLoading}] = useAddStudentMutation();
     const navigate = useNavigate()
   const { 
     register,handleSubmit, formState: { errors } 
 } = useForm();
 const handleYearChange = async (event) => {
-    const data = {academicYearID: event.target.value}
-    try{
-        const res = await fetchClass(data).unwrap();
-        if(res.success){
-            console.log(res.classRoom);
-            setClassRoom(res.classRoom)
-            console.log(classRoom, 'class fetch success');
-        }
-    }
-    catch (error) {
-        console.log(error, 'fetch class error');
-        if(error.status === 401){
-            console.log('toast in addstudent calling');
-            toast.warn('Unauthorized Access', {
-                position: "bottom-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-                })
-                localStorage.removeItem('schoolAdminToken');
-                navigate('/school_admin/login')
-        }
-    }
+    setAcademicYearID(event.target.value)
+    setSkip(false)
 }
 
 if(Object.keys(errors).length!=0) {
@@ -73,7 +51,22 @@ const onSubmit = async (data) => {
     }
     catch (error) {
         console.log(error);
-        if(error.status === 409) {
+        if(error.status === 401){
+            console.log('toast in addstudent calling');
+            toast.warn('Unauthorized Access', {
+                position: "bottom-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                })
+                localStorage.removeItem('schoolAdminToken');
+                navigate('/school_admin/login')
+        }
+        else if(error.status === 409) {
             toast.error('Student already exists!', {
                 position: "bottom-center",
                 autoClose: 5000,
@@ -100,9 +93,10 @@ if(isLoadingAcademicYearData){
     )
 }
 
-else if(isAcademicYearError){
-    console.log(error,'Academic year fetch error');
-    if(error.status === 401){
+else if(isAcademicYearError || isFetchClassError){
+    console.log(academicYearError,'Academic year fetch error');
+    console.log(classError,'Class fetch error');
+    if(academicYearError?.status === 401 || classError?.status === 401){
         console.log('toast in addstudent calling');
         toast.warn('Unauthorized Access', {
             position: "bottom-center",
@@ -119,7 +113,34 @@ else if(isAcademicYearError){
     }
 }
 
-else if(academicYearData || setClassRoom.length!=0){
+else if(isFetchClassError){
+    console.log(classError,'Academic year fetch error');
+    if(classError.status === 401){
+        console.log('toast in addstudent calling');
+        toast.warn('Unauthorized Access', {
+            position: "bottom-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            })
+            localStorage.removeItem('schoolAdminToken');
+            navigate('/school_admin/login')
+    }
+}
+
+else if(fetchClass){
+    setSkip(true)
+    console.log(fetchClass,'class fetch in addStudent');
+    if(fetchClass?.success){
+        setClassRoom(fetchClass.classRoom)
+    }
+}
+
+else if(academicYearData || classRoom.length!=0){
     return (
         <div className='addStudent'>
         <div className="m-3 ml-20 absolute inset-0 text-xl text-gray-900 font-semibold">
@@ -374,7 +395,7 @@ else if(academicYearData || setClassRoom.length!=0){
                                             })
                                           }
                                       </select>
-                                      {errors.classID && (
+                                      {errors.className && (
                                           <p className="text-xs italic text-red-500">
                                               Please select class room.
                                           </p>

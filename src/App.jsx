@@ -10,15 +10,16 @@ import LoginPage from './pages/School Admin/LoginPage'
 import HomePage from './pages/School Admin/HomePage'
 import OtpVerificationPage from './pages/School Admin/OtpVerificationPage'
 import ProtectedRoutes from './auth/ProtectedRoutes'
-import AddStudentPage from './pages/School Admin/AddStudentPage'
+import AddStudentPage from './pages/School Admin/Student Page/AddStudentPage'
 
 //Error
 import PageNotFound from './components/common/PageNotFound'
 import DashboardPage from './pages/School Admin/DashboardPage'
-import AddFacultyPage from './pages/School Admin/AddFacultyPage'
-import AddClassRoomPage from './pages/School Admin/AddClassRoomPage'
-import AddAcademicYearPage from './pages/School Admin/AddAcademicYearPage'
-import AddSubjectPage from './pages/School Admin/AddSubjectPage'
+import AddFacultyPage from './pages/School Admin/Faculty Page/AddFacultyPage'
+import AddClassRoomPage from './pages/School Admin/Class Room Page/AddClassRoomPage'
+import AddAcademicYearPage from './pages/School Admin/Academic Year Page/AddAcademicYearPage'
+import AddSubjectPage from './pages/School Admin/Subject Page/AddSubjectPage'
+import AddExamPage from './pages/School Admin/Exam Page/AddExamPage'
 
 const App = () => {
 
@@ -26,7 +27,7 @@ const App = () => {
     <div className='App'>
       <ErrorBoundary
       FallbackComponent={CommonError}
-      onError={()=>console.log('Error happend')}
+      onError={()=>console.log('Error in react app.jsx')}
       >
       <Router>
         <Routes>
@@ -43,6 +44,7 @@ const App = () => {
             <Route element={<AddClassRoomPage/>} path='/school_admin/addClassroom' exact/>
             <Route element={<AddAcademicYearPage/>} path='/school_admin/addAcademicYear' exact/>
             <Route element={<AddSubjectPage/>} path='/school_admin/add_subject' exact/>
+            <Route element={<AddExamPage/>} path='/school_admin/add_exam' exact/>
           </Route>
 
 
