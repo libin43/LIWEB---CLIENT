@@ -128,11 +128,11 @@ const OtpForm = () => {
                                     {
                                         isOtpInputDisplayed ? (
                                             <div>
-                                                 <div className="flex flex-row text-sm font-medium text-gray-400">
+                                                 <div className="flex flex-row text-sm font-medium text-gray-400 mb-4">
                                 <p>We have sent a code to your email {otpRecievedEmail}</p>
                             </div>
                                                <form onSubmit={handleOtpSubmit}>
-                                               <div className="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
+                                               <div className="flex flex-row items-center justify-between mx-auto w-full max-w-xs mb-9">
                                                     <div className="w-16 h-16 ">
                                                         <input
                                                             className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
@@ -183,9 +183,11 @@ const OtpForm = () => {
                                               
                                                 <div className="flex flex-col space-y-5">
                                                 {otpError ? 
-                                                 <p className="text-xs italic text-red-500">
+                                                 <div className="OtpError text-center">
+                                                    <p className="text-sm bold text-red-500">
                                                       Invaid Otp
                                                  </p>
+                                                 </div>
                                                  :
                                                  null
                                                 }
@@ -212,6 +214,7 @@ const OtpForm = () => {
                                         ) : (
                                             <form onSubmit={handleSubmit}>
                                             <div className="mb-4 ">
+                                                <div className="enterEmail mb-9">
                                                 <input
                                                     className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                                     id="email"
@@ -220,10 +223,13 @@ const OtpForm = () => {
                                                     value={email}
                                                     onChange={(e) => setEmail(e.target.value)}
                                                 />
+                                                </div>
                                                 {error ? 
-                                                 <p className="text-xs italic text-red-500">
+                                                 <div className="err text-center mb-5">
+                                                    <p className="text-xs italic text-red-500">
                                                       This Email ID is not registered with Liweb
                                                  </p>
+                                                 </div>
                                                  :
                                                  null
                                                 }

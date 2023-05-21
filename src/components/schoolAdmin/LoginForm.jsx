@@ -16,7 +16,7 @@ const LoginForm = () => {
   const [login] = useSchoolAdminLoginMutation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -34,8 +34,8 @@ const LoginForm = () => {
       if (res.success) {
         localStorage.setItem('schoolAdminToken',res.token)
         toast.success(' signin success!', {
-          position: "bottom-center",
-          autoClose: 2000,
+          position: "top-right",
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -43,7 +43,7 @@ const LoginForm = () => {
           progress: undefined,
           theme: "dark",
           });
-        navigate('/school_admin/home');
+        navigate('/school_admin/dashboard');
       }
     }
     catch (error) {
@@ -68,40 +68,6 @@ const LoginForm = () => {
         console.log(error, 'RTK error');
       }
     }
-    // try {
-    //   axios.post(urls.schoolAdminLogin,body,{ headers: { "Content-Type":"application/json" }})
-    //   .then((respone)=>{
-    //       console.log(respone);
-    //       if(respone.data.success){
-    //         localStorage.setItem('token',respone.data.token)
-    //         navigate('/school_admin/home')
-    //       }
-    //   })
-    //   .catch((err)=>{
-    //     setIsLoading(false)
-    //     console.log(err);
-    //     if(err.code === 'ERR_NETWORK') {
-    //       console.log('Server is down');
-    //     }
-    //       else if (err.response.status === 401){
-    //         setPasswordError(true)
-    //         setTimeout(() => {
-    //           setPasswordError(false);  
-    //         }, 3000);
-    //       }
-    //       else if (err.response.status){
-    //         setEmailError(true)
-    //         setTimeout(() => {
-    //           setEmailError(false);
-    //         }, 3000);
-    //       }
-    //       else {
-    //         console.log(err,'Axios error');
-    //       }
-    //     })
-    // } catch(error) {
-    //   console.log(error,'in catch block');
-    // }
   }
 
 

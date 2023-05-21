@@ -1,21 +1,23 @@
 import React, { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
-import { RiSettings4Line } from "react-icons/ri";
-import { TbReportAnalytics } from "react-icons/tb";
-import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
-import { FiMessageSquare, FiFolder, FiShoppingCart } from "react-icons/fi";
+import { MdEventNote } from 'react-icons/md';
+import { FaChalkboardTeacher } from 'react-icons/fa';
+import { BiChalkboard } from 'react-icons/bi';
+import { FaUserGraduate } from 'react-icons/fa';
+import { FaBookOpen } from 'react-icons/fa';
+import { FaClipboardList } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 
 const Home = () => {
   const menus = [
-    // { name: "Dashboard", link: "/", icon: MdOutlineDashboard },
-    { name: "Academic Year Management", link: "/school_admin/addAcademicYear", icon: AiOutlineUser },
-    { name: "Faculty Management", link: "/school_admin/addFaculty", icon: FiMessageSquare },
-    { name: "Classroom Management", link: "/school_admin/addClassroom", icon: TbReportAnalytics, margin: true },
-    { name: "Student Management", link: "/school_admin/addStudent", icon: FiFolder },
-    { name: "Subject Management", link: "/school_admin/add_subject", icon: FiShoppingCart },
-    { name: "Exam Management", link: "/school_admin/add_exam", icon: FiShoppingCart },
+    { name: "Dashboard", link: "/school_admin/dashboard", icon: MdOutlineDashboard },
+    { name: "Academic Year Management", link: "/school_admin/addAcademicYear", icon: MdEventNote },
+    { name: "Faculty Management", link: "/school_admin/addFaculty", icon: FaChalkboardTeacher },
+    { name: "Classroom Management", link: "/school_admin/addClassroom", icon: BiChalkboard, margin: true },
+    { name: "Student Management", link: "/school_admin/get_all_student", icon: FaUserGraduate },
+    { name: "Subject Management", link: "/school_admin/get_subject", icon: FaBookOpen },
+    { name: "Exam Management", link: "/school_admin/add_exam", icon: FaClipboardList },
     // { name: "Saved", link: "/", icon: AiOutlineHeart, margin: true },
     // { name: "Setting", link: "/", icon: RiSettings4Line },
   ];

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
+import { FaClipboardList } from 'react-icons/fa';
 import { useAddExamMutation, useGetAcademicYearQuery, useGetSubjectByAcademicYearQuery } from '../../../api/schoolAdmin/apiSlice';
 import { Spinner } from 'flowbite-react';
 import { BiChevronDown } from "react-icons/bi";
@@ -63,6 +64,18 @@ const AddExam = () => {
                 theme: "dark",
                 });
         }
+        else if(error.status === 409){
+            toast.error(`${error.data.error}`, {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
+        }
     }
   }
   if(isFetchingAcademicYearData || isLoading){
@@ -86,8 +99,13 @@ const AddExam = () => {
         <div className="m-3 ml-20 absolute inset-0 text-xl text-gray-900 font-semibold">
         <div className="p-4">
             <div className="p-4 border-2 border-gray-200 border-none rounded-lg dark:border-gray-700 mt-14">
+            <div className="flex items-center mb-10">
+                                <FaClipboardList className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                                <h5 className="ml-2">Add New Exam</h5>
+                            </div>
+                            <div className='p-4 border-2 border-gray-200 border-none rounded-lg dark:border-gray-700'>
+                            <div className="bg-gray-50 border border-gray-300 rounded-lg p-4 dark:border-gray-600">
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <h5>Add Exam</h5>
                     <div className="grid gap-6 mb-6 md:grid-cols-2">
                                 <div>
                                     <label
@@ -237,6 +255,8 @@ const AddExam = () => {
 
                             </div>
                 </form>
+                </div>
+                </div>
     
             </div>
         </div>

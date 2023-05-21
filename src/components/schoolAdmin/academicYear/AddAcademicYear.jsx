@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import { FaPlusCircle } from 'react-icons/fa';
 import { useAddAcademicYearMutation } from '../../../api/schoolAdmin/apiSlice';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -14,9 +15,26 @@ const AddAcademicYear = () => {
     const schoolName = useSelector(state => state.schoolAdmin.schoolName)
     const [addAcademicYear, {isLoading}] = useAddAcademicYearMutation();
     const customFormat = "dd.MM.yyyy";
+
+    const handleStartDateChange = (date) => {
+        if (date) {
+          const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+          setStartDate(utcDate);
+        } else {
+            setStartDate('');
+        }
+      };
+      const handleEndDateChange = (date) => {
+        if (date) {
+          const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+          setEndDate(utcDate);
+        } else {
+            setEndDate('');
+        }
+      };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!startDate && !endDate) {
+        if (!startDate || !endDate) {
             // Show an error message if no date has been selected
             toast.warn('Input fields cannot be empty', {
                 position: "bottom-center",
@@ -51,6 +69,8 @@ const AddAcademicYear = () => {
             progress: undefined,
             theme: "dark",
             });
+            setStartDate('');
+            setEndDate('');
        }
     }
     catch (error) {
@@ -63,7 +83,16 @@ const AddAcademicYear = () => {
         }
     }
   } else {
-    console.log('Select valid start date and end date');
+    toast.error('Enter valid Start and End date', {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
   }
   
     }
@@ -72,20 +101,12 @@ const AddAcademicYear = () => {
         <div className="m-3 ml-20 absolute inset-0 text-xl text-gray-900 font-semibold">
           <div className="p-4">
               <div className="p-4 border-2 border-gray-200 border-none rounded-lg dark:border-gray-700 mt-14">
-                  <div className='p-4 border-2 border-gray-200 border-none rounded-lg dark:border-gray-700 mt-14'>
-                    <svg aria-hidden="true"
-              className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg">
-
-                <path
-                fillRule="evenodd"
-                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                clipRule="evenodd"
-              />
-
-              </svg>
+              <div className="flex items-center mb-10">
+            <FaPlusCircle className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+            <h5 className="ml-2">Create Academic Year</h5>
+          </div>
+                  <div className='p-4 border-2 border-gray-200 border-none rounded-lg dark:border-gray-700 mt-4'>
+                  
               {
                 isLoading?
                 <div role="status" className='flex justify-center items-center h-screen'>
@@ -96,8 +117,8 @@ const AddAcademicYear = () => {
                 <span className="sr-only">Loading...</span>
             </div>
             :
+            <div className="bg-gray-50 border border-gray-300 rounded-lg p-4 dark:border-gray-600">
             <form onSubmit={handleSubmit}>
-                    <h5>Add Academic Year</h5> 
                       <div className="grid gap-6 mb-6 md:grid-cols-2">
                           <div>
                               <label
@@ -110,7 +131,7 @@ const AddAcademicYear = () => {
                                     <DatePicker className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-stone-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                                         closeOnScroll={(e) => e.target === document}
                                         selected={startDate}
-                                        onChange={(date) => setStartDate(date)}
+                                        onChange={(date) => handleStartDateChange(date)}
                                         dateFormat={customFormat}
                                         customInput={<input />}
                                         isClearable
@@ -121,10 +142,6 @@ const AddAcademicYear = () => {
                                         placeholderText='dd.mm.yy'
                                         
                                     />
-                        
-                               <p className="text-xs italic text-red-500">
-                               {!startDate && <p>Please select a date</p>}
-                               </p>
                           </div>
 
                           <div>
@@ -137,7 +154,7 @@ const AddAcademicYear = () => {
                               <DatePicker className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-stone-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                                         closeOnScroll={(e) => e.target === document}
                                         selected={endDate}
-                                        onChange={(date) => setEndDate(date)}
+                                        onChange={(date) => handleEndDateChange(date)}
                                         dateFormat={customFormat}
                                         customInput={<input />}
                                         isClearable
@@ -147,9 +164,6 @@ const AddAcademicYear = () => {
                                         withPortal
                                         placeholderText='dd.mm.yy'
                                     />
-                               <p className="text-xs italic text-red-500">
-                               {!endDate && <p>Please select a date</p>}
-                               </p>
                           </div>
 
                       </div>
@@ -163,6 +177,7 @@ const AddAcademicYear = () => {
                       </button>
                       </div>
                   </form>
+                  </div>
               }
                   </div>
               </div>

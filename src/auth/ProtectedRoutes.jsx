@@ -2,10 +2,10 @@ import React from 'react'
 import { Outlet, Navigate} from 'react-router-dom'
 
 const ProtectedRoutes = (props) => {
-    console.log('calling in  protected routes');
+    console.count('calling in  protected routes');
     
     const auth = localStorage.getItem('schoolAdminToken')
-    console.log(auth);
+    console.count(auth);
 
     return (
         <React.Fragment>

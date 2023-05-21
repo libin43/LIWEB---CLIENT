@@ -81,7 +81,6 @@ const NavbarAdmin = () => {
 
   }
   else if(data){
-    console.log(data, 'data of navbar');
     return (
       <div>
      <Navbar
