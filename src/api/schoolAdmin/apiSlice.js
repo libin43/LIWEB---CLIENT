@@ -71,14 +71,6 @@ export const schoolAdminApiSlice = createApi({
             query: () => '/school_admin/get_academic_year',
             providesTags: ['schoolAdmin','academicYear']
         }),
-        // getClassByAcademicYear: build.mutation({
-        //     query: (data) => ({
-        //         url: '/school_admin/get_class_room',
-        //         method: 'POST',
-        //         body: data,
-        //     }),
-        //     invalidatesTags: ['schoolAdmin','academicYear','class'],
-        // }),
         addClass: build.mutation({
             query: (data) => ({
                 url: '/school_admin/add_class',
@@ -99,6 +91,14 @@ export const schoolAdminApiSlice = createApi({
             }),
             invalidatesTags: ['student'],
         }),
+        getAllStudentsByClass: build.query({
+            query: ({selectClass, currentPage, itemsPerPage}) => `/school_admin/get_students/pagination?&page=${currentPage}&limit=${itemsPerPage}&classID=${selectClass}`,
+            providesTags: ['schoolAdmin','student']
+        }),
+        getAllStudentsBySearch: build.query({
+            query: ({selectClass, currentFilterPage, itemsPerPage, searchKey}) => `/school_admin/get_students/search_pagination?&page=${currentFilterPage}&limit=${itemsPerPage}&classID=${selectClass}&searchKey=${searchKey}`,
+            providesTags: ['schoolAdmin','student']
+        }),
         addSubject: build.mutation({
             query: (data) => ({
                 url: '/school_admin/add_subject',
@@ -111,6 +111,10 @@ export const schoolAdminApiSlice = createApi({
             query: (academicYearID) => `/school_admin/get_subject/${academicYearID}`,
             providesTags: ['schoolAdmin','academicYear','subject']
         }),
+        getSubjectsByClass: build.query({
+            query: ({selectedClassID, currentPage, itemsPerPage}) => `/school_admin/get_class_subjects/pagination?&page=${currentPage}&limit=${itemsPerPage}&classID=${selectedClassID}`,
+            providesTags: ['schoolAdmin','academicYear','subject']
+        }),
         addExam: build.mutation({
             query: (data) => ({
                 url: '/school_admin/add_exam',
@@ -118,6 +122,22 @@ export const schoolAdminApiSlice = createApi({
                 body: data
             }),
             invalidatesTags: ['exam'],
+        }),
+        blockUnblockStudent: build.mutation({
+            query: (data) => (console.log(data,'data in blcok'),{
+                url: '/school_admin/access_control_student',
+                method: 'PATCH',
+                body: data
+            }),
+            invalidatesTags: ['student'],
+        }),
+        getDashboardStatistics: build.query({
+            query: () => '/school_admin/dashboard_statistics',
+            providesTags: ['schoolAdmin','students','faculty','class']
+        }),
+        getDashboardAdmissionGraph: build.query({
+            query: ({startIndex}) => `/school_admin/dashboard_admission_graph/page?skip=${startIndex}`,
+            providesTags: ['schoolAdmin','students']
         }),
     })
 })
@@ -130,13 +150,18 @@ export const {
     useAddFacultyMutation,
     useGetFacultyAcademicYearDropDownQuery,
     useGetAcademicYearQuery,
-    // useGetClassByAcademicYearMutation,
     useGetClassByAcademicYearQuery,
     useAddAcademicYearMutation,
     useGetSchoolAdminDataQuery,
     useAddClassMutation,
     useAddStudentMutation,
+    useGetAllStudentsByClassQuery,
+    useGetAllStudentsBySearchQuery,
     useAddSubjectMutation,
     useGetSubjectByAcademicYearQuery,
+    useGetSubjectsByClassQuery,
     useAddExamMutation,
+    useBlockUnblockStudentMutation,
+    useGetDashboardStatisticsQuery,
+    useGetDashboardAdmissionGraphQuery,
 } = schoolAdminApiSlice
