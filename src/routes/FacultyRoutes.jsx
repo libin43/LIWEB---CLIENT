@@ -9,6 +9,8 @@ import FacultyExamSchedulePage from '../pages/Faculty/Exam Schedule Page/Faculty
 import ExamScoreInputPage from '../pages/Faculty/Exam Page/ExamScoreInputPage';
 import ClassInchargePage from '../pages/Faculty/Class Incharge Page/ClassInchargePage';
 import ClassResultPage from '../pages/Faculty/Class Result Page/ClassResultPage';
+import FacultyDashboardPage from '../pages/Faculty/Dashboard Page/FacultyDashboardPage';
+import FacultyProfilePage from '../pages/Faculty/Profile Page/FacultyProfilePage';
 
 
 
@@ -18,7 +20,8 @@ const FacultyRoutes = () => {
     <Routes>
     <Route path='/login' element={<FacultyLoginPage/>}/>
     
-    <Route path='/home' element={<FacultyHomePage/>}/>
+    <Route path='/home' element={<FacultyDashboardPage/>}/>
+    <Route path='/profile' element={<FacultyProfilePage/>}/>
     <Route path='/exam_subjects_schedule' element={<FacultyExamSchedulePage/>}/>
     <Route path='/exam_mark_input/students' element={<ExamScoreInputPage/>}/>
     <Route path='/classes_incharge' element={<ClassInchargePage/>}/>

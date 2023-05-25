@@ -5,7 +5,6 @@ const baseQuery = fetchBaseQuery({
     baseUrl: baseUrl,
     prepareHeaders: (headers) => {
         headers.set('authorization', `Bearer ${localStorage.getItem('facultyToken')}`);
-        headers.set('Content-Type', 'application/json')
         return headers;
     }
 })
@@ -19,6 +18,9 @@ export const facultyApiSlice = createApi({
                 url: '/auth/faculty/login',
                 method: 'POST',
                 body: data,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             }),
             invalidatesTags: ['faculty'],
         }),
@@ -70,6 +72,18 @@ export const facultyApiSlice = createApi({
             }),
             invalidatesTags: ['students'],
         }),
+        facultyDashboardStatistics: build.query({
+            query: (academicYearID) => `/faculty/dashboard_statistics/${academicYearID}`,
+            providesTags: ['faculty'],
+        }),
+        facultyProfileUpdate: build.mutation({
+            query: (formData) => ({
+                url: '/faculty/edit_profile',
+                method: 'PATCH',
+                body: formData,
+            }),
+            invalidatesTags: ['faculty'],
+        }),
         }),
     })
 
@@ -86,4 +100,6 @@ export const {
     useFacultyGetStudentTotalExamResultsQuery,
     useFacultyGetClassByAcademicYearQuery,
     useFacultyPromoteStudentsMutation,
+    useFacultyDashboardStatisticsQuery,
+    useFacultyProfileUpdateMutation,
 } = facultyApiSlice

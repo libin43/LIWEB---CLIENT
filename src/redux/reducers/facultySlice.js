@@ -33,7 +33,8 @@ export const facultySlice = createSlice({
             state.classID = action.payload.classID;
         },
         clearFacultyToken: (state) => {
-            state.facultyToken = initialState.facultyToken;
+            state.facultyToken = '';
+            localStorage.removeItem('facultyToken')
         }
     },
 })

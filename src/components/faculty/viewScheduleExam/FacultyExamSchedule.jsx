@@ -78,7 +78,7 @@ const FacultyExamSchedule = ({selectedYearID}) => {
                 <>
                     {examScheduledSubjects.length !== 0 &&
                         <>
-                            <h3>Examination Scheduled</h3>
+                            <h3 className='pl-10'>Examination Scheduled</h3>
                             <div className="p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                 {
                                     examScheduledSubjects.map((subjects, index) =>
@@ -132,7 +132,7 @@ const FacultyExamSchedule = ({selectedYearID}) => {
                     {
                         examNotScheduledSubjects.length !== 0 &&
                         <>
-                            <h3>Examination Not Scheduled</h3>
+                            <h3 className='pl-10'>Examination Not Scheduled</h3>
                             <div className="p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                 {
                                     examNotScheduledSubjects.map((subjects, index) =>
