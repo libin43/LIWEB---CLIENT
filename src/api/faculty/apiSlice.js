@@ -76,11 +76,26 @@ export const facultyApiSlice = createApi({
             query: (academicYearID) => `/faculty/dashboard_statistics/${academicYearID}`,
             providesTags: ['faculty'],
         }),
-        facultyProfileUpdate: build.mutation({
+        facultyUploadImage: build.mutation({
             query: (formData) => ({
-                url: '/faculty/edit_profile',
+                url: '/faculty/upload_pro_pic',
                 method: 'PATCH',
                 body: formData,
+            }),
+            invalidatesTags: ['faculty'],
+        }),
+        facultyRemoveImage: build.mutation({
+            query: (data) => ({
+                url: `/faculty/remove_pro_pic/${data}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['faculty'],
+        }),
+        facultyUpdateProfile:  build.mutation({
+            query: (data) => ({
+                url: 'faculty/update_profile',
+                method: 'PATCH',
+                body: data,
             }),
             invalidatesTags: ['faculty'],
         }),
@@ -101,5 +116,7 @@ export const {
     useFacultyGetClassByAcademicYearQuery,
     useFacultyPromoteStudentsMutation,
     useFacultyDashboardStatisticsQuery,
-    useFacultyProfileUpdateMutation,
+    useFacultyUploadImageMutation,
+    useFacultyRemoveImageMutation,
+    useFacultyUpdateProfileMutation,
 } = facultyApiSlice
