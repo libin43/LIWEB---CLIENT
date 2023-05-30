@@ -1,3 +1,3 @@
 import dotenv from 'dotenv'
 
-export const baseUrl = 'http://localhost:3000/api/v1'
+export const baseUrl = 'https://api.liweb.online/api/v1'
