@@ -5,8 +5,9 @@ import { BiChevronDown, BiSearch } from "react-icons/bi";
 import { AiOutlineClose } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import useDebounce from '../../../hooks/useDebounce';
-import Paginate from '../../pagination/Paginate';
+
 import { useBlockUnblockStudentMutation, useGetAcademicYearQuery, useGetAllStudentsByClassQuery, useGetAllStudentsBySearchQuery, useGetClassByAcademicYearQuery } from '../../../api/schoolAdmin/apiSlice'
+import Paginate from '../../pagination/Paginate';
 
 const GetStudent = () => {  
     const [selectAcademicYearStartDate, setSelectAcademicYearStartDate] = useState('');
