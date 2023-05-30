@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom';
 
-import { useSchoolAdminSignupMutation } from '../../api/schoolAdmin/apiSlice';
+import { useSchoolAdminSignupMutation } from '../../../api/schoolAdmin/apiSlice';
 
 const SignupForm = () => {
     const [showPassword, setShowPassword] = useState(false);

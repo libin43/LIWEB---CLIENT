@@ -1,16 +1,20 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
+import { useDispatch } from "react-redux";
 import { Navbar } from 'flowbite-react'
 import { Dropdown } from 'flowbite-react'
 import { Avatar } from 'flowbite-react'
 import {toast} from 'react-toastify'
-import { useGetSchoolAdminDataQuery } from '../../api/schoolAdmin/apiSlice'
+import { useGetSchoolAdminDataQuery } from '../../../api/schoolAdmin/apiSlice'
+import { clearSchoolAdminToken } from '../../../redux/reducers/schoolAdminSlice';
 
 
 const NavbarAdmin = () => {
   const {data, isLoading, isError, error} = useGetSchoolAdminDataQuery();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleSignOutClick = () => {
+    dispatch(clearSchoolAdminToken())
     localStorage.removeItem('schoolAdminToken');
     navigate('/school_admin/login');
   }

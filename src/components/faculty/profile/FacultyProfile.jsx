@@ -69,6 +69,23 @@ const FacultyProfile = () => {
         setEditMode(!editMode);
     };
 
+    const authError = () => {
+            toast.warn('Unauthorized Access', {
+                position: "bottom-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                })
+                localStorage.removeItem('facultyToken');
+                return(
+                  <Navigate to={'/faculty/login'}/>
+                )
+    }
+
     const handleImageChange = (event) => {
         console.log('image uplaod called');
         const file = event.target.files[0];
@@ -112,6 +129,9 @@ const FacultyProfile = () => {
             setSelectedFile(null);
         } catch(error) {
             console.log(error);
+            if(error?.status === 401){
+                authError();
+            }
         }
     }
 
@@ -127,6 +147,9 @@ const FacultyProfile = () => {
         }
         catch(error) {
             console.log(error);
+            if(error?.status === 401){
+                authError();
+            }
         }
       };
 
@@ -139,6 +162,8 @@ const FacultyProfile = () => {
         }
         catch(error) {
             console.log(error);
+            if(error?.status === 401){
+            }
         }
     }
 
@@ -155,22 +180,6 @@ const FacultyProfile = () => {
     }
     if(isError){
         console.log(error);
-        if(error?.status === 401){
-            toast.warn('Unauthorized Access', {
-                position: "bottom-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-                })
-                localStorage.removeItem('facultyToken');
-                return(
-                  <Navigate to={'/faculty/login'}/>
-                )
-        }
     }
     if(data){
         console.log(data, 'get fac info');

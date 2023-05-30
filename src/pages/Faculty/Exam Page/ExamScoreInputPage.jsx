@@ -2,8 +2,6 @@ import React from 'react'
 import ExamScoreInputTable from '../../../components/faculty/inputExamScore/ExamScoreInputTable'
 import { useLocation } from 'react-router-dom';
 import { useFacultyGetStudentsByClassIDQuery } from '../../../api/faculty/apiSlice';
-import NavbarCommon from '../../../components/navbar/NavbarCommon';
-
 
 const ExamScoreInputPage = () => {
     const location = useLocation();
@@ -40,7 +38,6 @@ const ExamScoreInputPage = () => {
         console.log(data);
         return (
             <div>
-                <NavbarCommon/>
                 <ExamScoreInputTable data = {data}/>
             </div>
           )

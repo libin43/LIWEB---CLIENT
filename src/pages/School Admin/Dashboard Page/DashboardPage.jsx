@@ -1,23 +1,18 @@
-import React,{ useState, useEffect } from 'react'
-import Sidebar from '../../../components/schoolAdmin/Sidebar'
-import NavbarAdmin from '../../../components/schoolAdmin/NavbarAdmin'
+import React,{ useEffect } from 'react'
 import DashboardStatsGrid from '../../../components/schoolAdmin/dashboard/DashboardStatsGrid'
 import AdmissionChart from '../../../components/schoolAdmin/dashboard/AdmissionChart'
-import { useGetDashboardAdmissionGraphQuery, useGetDashboardStatisticsQuery } from '../../../api/schoolAdmin/apiSlice'
+import { useGetDashboardStatisticsQuery } from '../../../api/schoolAdmin/apiSlice'
 
 const DashboardPage = () => {
     const statisticsQuery = useGetDashboardStatisticsQuery();
 
-    // const { data: statisticsData, isError: isStatisticsError, error: statisticsError } = useGetDashboardStatisticsQuery();
-    // const { data: admissionData, isError: isAdmissionDataError, error: admissionDataError } = useGetDashboardAdmissionGraphQuery();
     useEffect(() => {
         // Call the API requests
         statisticsQuery.refetch();
       }, []);
 
-
-
       if (statisticsQuery.isError) {
+        console.log(statisticsQuery.error);
         return (
             <div className="flex flex-col items-center justify-center h-screen">
               <h1 className="text-4xl font-bold mb-4">Oops! Something went wrong.</h1>
@@ -27,8 +22,6 @@ const DashboardPage = () => {
       }
     return (
         <div>
-            <NavbarAdmin></NavbarAdmin>
-            <Sidebar></Sidebar>
             <div className="dashboard">
                 <div className="ml-14 mt-14 text-xl font-semibold">
                     <div className="p-6 sm:p-10 mt-8 sm:mt-14">

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+console.log('fac reducer hitting');
 
 const facultyToken = localStorage.getItem('facultyToken') ?? '';
 const parsedData = facultyToken ? facultyToken: null;
@@ -8,11 +9,6 @@ const initialState ={
     academicYearID: '',
     classID: '',
 }
-
-
-// const cachedFacultyInfo = 
-// console.log(cachedFacultyInfo,'cached data');
-
 
 export const facultySlice = createSlice({
     name: 'faculty',
@@ -35,6 +31,7 @@ export const facultySlice = createSlice({
         clearFacultyToken: (state) => {
             state.facultyToken = '';
             localStorage.removeItem('facultyToken')
+            console.log('fac token removed');
         }
     },
 })

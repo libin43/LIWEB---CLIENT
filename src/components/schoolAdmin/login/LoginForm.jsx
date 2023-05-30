@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
-import { useSchoolAdminLoginMutation } from '../../api/schoolAdmin/apiSlice';
+import { useSchoolAdminLoginMutation } from '../../../api/schoolAdmin/apiSlice';
 import { useDispatch } from 'react-redux';
-import { setSchoolAdminInfo } from '../../redux/reducers/schoolAdminSlice';
+import { setSchoolAdminToken } from '../../../redux/reducers/schoolAdminSlice';
 import {toast} from 'react-toastify';
 
 const LoginForm = () => {
@@ -32,7 +32,7 @@ const LoginForm = () => {
       const res = await login(data).unwrap()
       console.log(res,'its response from login');
       if (res.success) {
-        localStorage.setItem('schoolAdminToken',res.token)
+        dispatch(setSchoolAdminToken(res))
         toast.success(' signin success!', {
           position: "top-right",
           autoClose: 1000,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import AcademicYearDropDown from '../../academicYearDropDown/academicYearDropDown'
+import AcademicYearDropDown from '../academicYearDropDown/AcademicYearDropDown';
 import { useGetAcademicYearQuery, useGetClassByAcademicYearQuery, useGetSubjectsByClassQuery } from '../../../api/schoolAdmin/apiSlice'
-import ClassDropDown from '../../classDropDown/ClassDropDown';
+import ClassDropDown from '../classDropDown/ClassDropDown';
 import AdminTable from '../tables/adminTable';
 import { Table, Button } from 'flowbite-react'
 import { Link } from 'react-router-dom';

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card } from 'flowbite-react';
+import {toast} from 'react-toastify';
 import { Navigate, Link, useNavigate } from 'react-router-dom';
 import { useFacultyGetClassInchargesQuery } from '../../../api/faculty/apiSlice';
 

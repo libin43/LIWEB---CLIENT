@@ -1,19 +1,81 @@
-import React from 'react'
-import { Outlet, Navigate} from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Outlet, Navigate, useNavigate} from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
+import decode from 'jwt-decode';
+import NavbarCommon from '../components/navbar/NavbarCommon';
+import NavbarAdmin from '../components/schoolAdmin/navbar/NavbarAdmin'
+
+import Sidebar from '../components/schoolAdmin/sidebar/Sidebar'
+
 
 const ProtectedRoutes = (props) => {
-    console.count('calling in  protected routes');
-    
-    const auth = localStorage.getItem('schoolAdminToken')
-    console.count(auth);
+  console.count('calling in  protected routes');
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    return (
-        <React.Fragment>
-            {
-        auth ? <Outlet/> : <Navigate to={`/${props.role}/login`} />
+  const auth = (() => {
+    switch (props.role) {
+      case 'school_admin':
+        const schoolAdminToken = localStorage.getItem('schoolAdminToken')
+        if(schoolAdminToken){
+          try{
+            const decodedToken = decode(schoolAdminToken);
+            if (decodedToken.exp * 1000 < new Date().getTime()) {
+              console.log('toekn expireed');
+              return null;
             }
-        </React.Fragment>
-    )
+            return schoolAdminToken;
+          }catch(error){
+            navigate(`/${props.role}/login`)
+          }
+        } else {
+          return null
+        }
+      case 'faculty':
+        const facultytoken = localStorage.getItem('facultyToken')
+        if(facultytoken){
+          try{
+            const decodedToken = decode(facultytoken);
+            if (decodedToken.exp * 1000 < new Date().getTime()) {
+              console.log('toekn expireed');
+              return null;
+            }
+            return facultytoken;
+          }catch(error){
+            navigate(`/${props.role}/login`)
+          }
+        } else {
+          return null
+        }
+      default:
+        return null;
+    }
+  })();
+
+  useEffect(()=>{
+    // auth()
+  },[location])
+
+  console.log(props.role, 'its the role');
+  console.log(auth, 'auth');
+
+  return (
+    <>
+    {auth && (
+      <>
+        {props.role === 'faculty' && <NavbarCommon />}
+        {props.role === 'school_admin' && (
+          <>
+            <NavbarAdmin />
+            <Sidebar />
+          </>
+        )}
+        <Outlet />
+      </>
+    )}
+    {!auth && <Navigate to={`/${props.role}/login`} />}
+  </>
+  )
 }
 
 export default ProtectedRoutes

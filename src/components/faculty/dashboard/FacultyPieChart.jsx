@@ -9,7 +9,7 @@ import { PieChart, Pie, Sector, ResponsiveContainer } from 'recharts';
 // ];
 
 const renderActiveShape = (props) => {
-  console.log(props);
+
   const RADIAN = Math.PI / 180;
   const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props;
   const sin = Math.sin(-RADIAN * midAngle);

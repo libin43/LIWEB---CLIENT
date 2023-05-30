@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 
-import { useVerifyEmailForOtpMutation, useVerifyOtpMutation } from '../../api/schoolAdmin/apiSlice';
+import { useVerifyEmailForOtpMutation, useVerifyOtpMutation } from '../../../api/schoolAdmin/apiSlice';
 
 const OtpForm = () => {
     const [isOtpInputDisplayed, setisOtpInputDisplayed] = useState(false)

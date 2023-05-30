@@ -2,7 +2,7 @@ import React from 'react'
 import { IoBagHandle, IoPieChart, IoPeople, IoCart } from 'react-icons/io5'
 
 const FacultyStatistics = ({data}) => {
-    console.log(data);
+    console.log(data,'stat data');
 
     console.count('fac stats');
 

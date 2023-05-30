@@ -1,5 +1,5 @@
 import React from 'react'
-import OtpForm from '../../components/schoolAdmin/OtpForm'
+import OtpForm from '../../../components/schoolAdmin/otp/OtpForm'
 
 const OtpVerificationPage = () => {
   return (
