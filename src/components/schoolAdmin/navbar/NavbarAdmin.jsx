@@ -110,7 +110,7 @@ const NavbarAdmin = () => {
       inline={true}
       label={<Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded={true}/>}
     >
-      <Dropdown.Header>
+      <Dropdown.Header  className="bg-white">
         <span className="block text-sm">
           {data.data.schoolAdminName}
         </span>
@@ -118,17 +118,17 @@ const NavbarAdmin = () => {
           admin panel
         </span>
       </Dropdown.Header>
-      <Dropdown.Item>
+      <Dropdown.Item className="bg-white">
         Dashboard
       </Dropdown.Item>
-      <Dropdown.Item>
+      <Dropdown.Item className="bg-white">
         Settings
       </Dropdown.Item>
-      <Dropdown.Item>
+      <Dropdown.Item className="bg-white">
         Earnings
       </Dropdown.Item>
       <Dropdown.Divider />
-      <Dropdown.Item onClick={handleSignOutClick}>
+      <Dropdown.Item onClick={handleSignOutClick} className="bg-white">
         Sign out
       </Dropdown.Item>
     </Dropdown>

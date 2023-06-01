@@ -141,7 +141,7 @@ function NavbarCommon() {
               className={`px-8 transition-opacity ${toggleMenu ? "opacity-100 duration-500" : "opacity-0 duration-300"
                 }`}
             >
-              <div className="flex flex-col gap-8 font-semibold tracking-wider">
+              <div className="flex flex-col gap-8 font-semibold tracking-wider" onClick={() => setToggleMenu(!toggleMenu)}>
                 <Link to={"/faculty/home"} className={`${location.pathname === '/faculty/home' ? 'border-l-4 border-gray-600 font-bold':'' }`}>
                   Home
                   </Link>

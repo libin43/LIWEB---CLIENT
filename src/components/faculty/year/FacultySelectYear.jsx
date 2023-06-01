@@ -1,5 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { selectFaculty } from '../../../redux/reducers/facultySlice'
 import { Navigate } from 'react-router-dom';
 import {toast} from 'react-toastify';
 import { useFacultyGetAcademicYearQuery } from '../../../api/faculty/apiSlice';
@@ -7,22 +9,24 @@ import { setAcademicYearID } from '../../../redux/reducers/facultySlice';
 
 const FacultySelectYear = () => {
   console.count('select year component');
+  const { optedYear } = useSelector(selectFaculty);
 
     const {data: academicYearData, isLoading: isFetchingAcademicYearData, isError: isAcademicYearFetchError, error: academicYearError} = useFacultyGetAcademicYearQuery();
     const dispatch = useDispatch()
     const [isOpen, setIsOpen] = useState(false);
     const [selectedYear, setSelectedYear] = useState({id:'', startDate:'', endDate:''});
     const toggleDropdown = () => setIsOpen(!isOpen);
+
     const handleOptionChange = (selectedYear) => {
-      console.log('fuhnctioon calle');
-      console.log(selectedYear);
       setSelectedYear({id: selectedYear.id, startDate: selectedYear.startDate, endDate: selectedYear.endDate });
       dispatch(setAcademicYearID(selectedYear));
       };
       
-      // useEffect(() => {
-      //   dispatch(setAcademicYearID(selectedYear))
-      // },[selectedYear])
+      useEffect(() => {
+        if(optedYear.id !=='' ){
+          setSelectedYear({id: optedYear.id, startDate: optedYear.startDate, endDate: optedYear.endDate })
+        }
+      },[])
 
   
 
@@ -37,7 +41,7 @@ const FacultySelectYear = () => {
             </div>
         )
     }
-    else if(isAcademicYearFetchError){
+    if(isAcademicYearFetchError){
         console.log(academicYearError);
         if(academicYearError?.status === 401){
             toast.warn('Unauthorized Access', {
@@ -56,10 +60,10 @@ const FacultySelectYear = () => {
                 )
         }
     }
-    else if(academicYearData){
+    if(academicYearData){
       console.log(academicYearData);
         return (
-            <div className="relative mx-auto mt-10 w-4/5 md:w-5/12 ">
+            <div className="relative mx-auto mt-10 w-4/5 md:w-5/12 z-10">
           <h3>Select to view data</h3>
 
             <button

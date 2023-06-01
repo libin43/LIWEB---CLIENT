@@ -7,6 +7,7 @@ const parsedData = facultyToken ? facultyToken: null;
 const initialState ={
     facultyToken: parsedData ?? {facultyToken: ''},
     academicYearID: '',
+    optedYear: {id: '', startDate: '', endDate: ''},
     classID: '',
 }
 
@@ -22,7 +23,10 @@ export const facultySlice = createSlice({
         },
         setAcademicYearID: (state, action) => {
             console.log(action,'hit in reducer of academic year');
-            state.academicYearID = action.payload.id;
+            // state.academicYearID = action.payload.id;
+            state.optedYear.id = action.payload.id
+            state.optedYear.startDate = action.payload.startDate
+            state.optedYear.endDate = action.payload.endDate
         },
         setClassID: (state, action) => {
             console.log(action,'hit in reducer of class');

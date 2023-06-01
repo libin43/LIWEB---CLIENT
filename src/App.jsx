@@ -10,6 +10,7 @@ import SchoolAdminRoutes from './routes/SchoolAdminRoutes'
 
 //Error
 import PageNotFound from './components/common/PageNotFound'
+import LandingPage from './pages/Index/LandingPage'
 
 const App = () => {
 
@@ -27,6 +28,8 @@ const App = () => {
 
             {/* Faculty Route */}
             <Route path='/faculty/*' element={<FacultyRoutes />} />
+
+            <Route path='/' element={<LandingPage />} />
 
             <Route path='*' element={<PageNotFound />} />
           </Routes>

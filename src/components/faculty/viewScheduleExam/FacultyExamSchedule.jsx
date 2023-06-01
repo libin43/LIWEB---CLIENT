@@ -12,8 +12,8 @@ const FacultyExamSchedule = ({selectedYearID}) => {
     const [showModal, setShowModal] = useState(false);
     const [selectedSubjectID, setSelectedSubjectID] = useState(null);
     const [selectedExamID, setSelectedExamID] = useState(null);
-    const {data, isLoading, isError, error} = useFacultyGetExamScheduleQuery(selectedYearID);
-    if(isLoading){
+    const {data, isFetching, isError, error} = useFacultyGetExamScheduleQuery(selectedYearID);
+    if(isFetching){
         return (
             <div role="status" className='flex justify-center items-center h-screen'>
             <svg aria-hidden="true" className="w-16 h-16 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -82,26 +82,26 @@ const FacultyExamSchedule = ({selectedYearID}) => {
                             <div className="p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                 {
                                     examScheduledSubjects.map((subjects, index) =>
-                                    <div className="max-w-xs relative group">
-                                    <Card key={index}>
-                                      <div className="mb-2 group-hover:blur-sm">
-                                      <div className="mt-2.5 mb-5 flex items-center">
+                                    <div className="max-w-s relative group" key={subjects.subjectCode}>
+                                    <Card className="flex flex-col justify-center items-center h-full"> 
+                                      <div className="mb-2 group-hover:blur-sm flex-grow">
+                                      <div className="mt-2.5 mb-5 flex items-center lg:text-xl">
                                           <h5 className="font-semibold tracking-tight text-gray-900 dark:text-white">
                                             Exam Name: {subjects.examName}
                                           </h5>
                                         </div>
-                                        <div className="mt-2.5 mb-5 flex items-center">
+                                        <div className="mt-2.5 mb-5 flex items-center lg:text-xl">
                                           <h5 className="font-semibold tracking-tight text-gray-900 dark:text-white">
                                             Subject Code: {subjects.subjectCode}
                                           </h5>
                                         </div>
-                                        <div className="mt-2.5 mb-5 flex items-center">
+                                        <div className="mt-2.5 mb-5 flex items-center lg:text-xl">
                                           <h5 className="font-semibold tracking-tight text-gray-900 dark:text-white">
                                             Subject Name: {subjects.subjectName}
                                           </h5>
                                         </div>
-                                        <div className="flex items-center justify-between">
-                                          <span className="text-xl text-gray-900 dark:text-white">
+                                        <div className="flex items-center justify-between text-2xl lg:text-3xl">
+                                          <span className="text-gray-900 dark:text-white">
                                             Date : {subjects.examDateFormatted}
                                           </span>
                                         </div>
@@ -136,7 +136,7 @@ const FacultyExamSchedule = ({selectedYearID}) => {
                             <div className="p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                 {
                                     examNotScheduledSubjects.map((subjects, index) =>
-                                    <div className="max-w-xs relative group">
+                                    <div className="max-w-xs relative group" key={subjects.subjectCode}>
                                     <Card>
                                       <div className="mb-2 group-hover:blur-sm">
                                         <div className="mt-2.5 mb-5 flex items-center">

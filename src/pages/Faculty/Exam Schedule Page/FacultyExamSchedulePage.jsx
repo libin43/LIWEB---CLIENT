@@ -8,15 +8,15 @@ import FacultyExamSchedule from '../../../components/faculty/viewScheduleExam/Fa
 
 const FacultyExamSchedulePage = () => {
   const auth = localStorage.getItem('facultyToken');
-  const {academicYearID} = useSelector(selectFaculty);
+  const { optedYear } = useSelector(selectFaculty);
   console.count('exam schedule page '); 
   if(auth !==null){
     return (
       <div>
           <FacultySelectYear/>
           {
-            academicYearID !=='' ?
-            <FacultyExamSchedule selectedYearID= {academicYearID}/>:
+            optedYear.id !=='' ?
+            <FacultyExamSchedule selectedYearID= {optedYear.id}/>:
             ''
           }
       </div>

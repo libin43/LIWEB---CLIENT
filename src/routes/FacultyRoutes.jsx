@@ -14,6 +14,7 @@ import ProtectedRoutes from '../auth/ProtectedRoutes';
 import PageNotFound from '../components/common/PageNotFound';
 import { ErrorBoundary } from 'react-error-boundary';
 import CommonError from '../components/common/CommonError';
+import SubjectResultPage from '../pages/Faculty/Class Result Page/SubjectResultPage';
 
 
 const FacultyRoutes = () => {
@@ -31,7 +32,8 @@ const FacultyRoutes = () => {
           <Route path='/home' element={<FacultyDashboardPage />} />
           <Route path='/profile' element={<FacultyProfilePage />} />
           <Route path='/exam_subjects_schedule' element={<FacultyExamSchedulePage />} />
-          <Route path='/exam_mark_input/students' element={<ExamScoreInputPage />} />
+          <Route path='/examination/exam_mark_input/students' element={<ExamScoreInputPage />} />
+          <Route path='/examination/exam_mark_view/students' element={<SubjectResultPage />} />
           <Route path='/classes_incharge' element={<ClassInchargePage />} />
           <Route path='/class_overall_result/:classId' element={<ClassResultPage />} />
         </Route>

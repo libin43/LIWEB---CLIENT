@@ -37,8 +37,8 @@ export const facultyApiSlice = createApi({
             providesTags: ['faculty','subject','exam']
         }),
         facultyGetExamConductedClasses: build.query({
-            query: (selectedSubjectID) => `/faculty/get_exam_conducted_classes/${selectedSubjectID}`,
-            providesTags: ['faculty','subject','exam']
+            query: ({selectedSubjectID, selectedExamID}) => `/faculty/get_exam_conducted_classes/subject?subjectId=${selectedSubjectID}&examId=${selectedExamID}`,
+            providesTags: ['faculty','subject','exam','result']
         }),
         facultyGetStudentsByClassID: build.query({
             query: ({classID,subjectID,examID}) => `/faculty/students_in_class/students?classId=${classID}&subjectId=${subjectID}&examId=${examID}`,
@@ -74,7 +74,7 @@ export const facultyApiSlice = createApi({
         }),
         facultyDashboardStatistics: build.query({
             query: (academicYearID) => `/faculty/dashboard_statistics/${academicYearID}`,
-            providesTags: ['faculty'],
+            providesTags: ['faculty','student','class','subject'],
         }),
         facultyUploadImage: build.mutation({
             query: (formData) => ({
@@ -99,6 +99,10 @@ export const facultyApiSlice = createApi({
             }),
             invalidatesTags: ['faculty'],
         }),
+        facultyViewExamResult : build.query({
+            query: ({classID,subjectID,examID}) => `/faculty/subject_exam_result/students?classId=${classID}&subjectId=${subjectID}&examId=${examID}`,
+            providesTags: ['faculty','student','class','result'],
+        }),
         }),
     })
 
@@ -119,4 +123,5 @@ export const {
     useFacultyUploadImageMutation,
     useFacultyRemoveImageMutation,
     useFacultyUpdateProfileMutation,
+    useFacultyViewExamResultQuery,
 } = facultyApiSlice

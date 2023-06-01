@@ -7,10 +7,11 @@ const ClassOverallResult = ({classId}) => {
     const [showAcademicYear, setShowAcademicYear] = useState(false);
     const [yearQuery,setYearQuery] = useState(true);
     const [selectedYear, setSelectedYear] = useState('');
-    const [classRoomQuery, setClassRoomQuery] = useState(true)
+    const [classRoomQuery, setClassRoomQuery] = useState(true);
     const [selectedClass, setSelectedClass] = useState('');
     const [showMoveStudents, setShowMoveStudents] = useState(false);
 
+    console.log(selectedClass, 'fasdjkajjlafksdjlk');
 
     const toggleAcademicYear = () => {
     setYearQuery(false);
@@ -38,6 +39,7 @@ const ClassOverallResult = ({classId}) => {
     const data = {students,currentClassID,selectedClass}
     console.log(data)
     try{
+        console.log(data);
         const res = await promoteStudents(data).unwrap()
         console.log(res);
     }

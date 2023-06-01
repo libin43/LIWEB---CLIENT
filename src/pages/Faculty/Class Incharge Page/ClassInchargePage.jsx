@@ -8,15 +8,15 @@ import ClassInCharge from '../../../components/faculty/classIncharge/ClassInChar
 
 const ClassInchargePage = () => {
     const auth = localStorage.getItem('facultyToken');
-    const { academicYearID } = useSelector(selectFaculty);
+    const { optedYear } = useSelector(selectFaculty);
     console.count('classincharge page');
     if (auth !== '') {
         return (
             <div>
                 <FacultySelectYear />
                 {
-                    academicYearID !== '' ?
-                        <ClassInCharge selectedYearID={academicYearID} /> :
+                    optedYear.id !== '' ?
+                        <ClassInCharge selectedYearID={optedYear.id} /> :
                         ''
                 }
             </div>

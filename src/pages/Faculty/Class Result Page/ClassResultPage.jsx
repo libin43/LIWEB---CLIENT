@@ -1,11 +1,10 @@
 import React from 'react'
-import ClassOverallResult from '../../../components/faculty/classExamResult/ClassOverallResult'
 import { useParams } from 'react-router-dom'
+import ClassOverallResult from '../../../components/faculty/classExamResult/ClassOverallResult'
 
 const ClassResultPage = () => {
     console.log('called claass res page');
     const {classId} = useParams();
-    console.log(classId,'dclass id');
   return (
     <div>
         <ClassOverallResult classId = {classId}/>
