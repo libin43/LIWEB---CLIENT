@@ -2,7 +2,6 @@ import React from 'react'
 import { IoBagHandle, IoPieChart, IoPeople, IoCart } from 'react-icons/io5'
 
 const DashboardStatsGrid = ({data}) => {
-    console.count('StatsGrid rendered');
   return (
     <div className="flex flex-wrap gap-4 sm:gap-8 md:gap-12">
 			<BoxWrapper>

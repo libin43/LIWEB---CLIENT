@@ -5,8 +5,6 @@ import { Navigate } from 'react-router-dom';
 
 
 const FacultyHomePage = () => {
-  // const {facultyToken} = useSelector(selectFaculty);
-  console.count(facultyToken, 'its fac home page');
   const auth = localStorage.getItem('facultyToken');
   if (auth === null) {
     toast.warn('Unauthorized Access', {

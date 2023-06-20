@@ -24,10 +24,7 @@ function NavbarCommon() {
 
   const {data, isLoading, isError, error} = useGetFacultyDataQuery();
 
-
-
   const handleFacultySignout = () => {
-    console.log('fn called');
     dispatch(clearFacultyToken())
     navigate('/faculty/login');
   }
@@ -65,8 +62,6 @@ function NavbarCommon() {
   }
 
   if(data){
-    console.count('navbar render');
-    console.log(data,'navbar');
     const {facultyImageUrl} = data.faculty
     const {facultyName} = data.faculty
     

@@ -32,11 +32,8 @@ const AddExam = () => {
         return;
     }
     const exam = {...data, selectedSubject}
-    console.log(selectedSubject,'selected subject');
-    console.log(exam);
     try{
         const res = await addExam(exam).unwrap()
-        console.log(res);
         if(res.success){
             toast.success(`Examination scheduled on ${res.exam.examDate}!`, {
                 position: "bottom-center",
@@ -84,13 +81,6 @@ const AddExam = () => {
     <Spinner aria-label="Center-aligned spinner example" />
     </div>
     )
-  }
-  else if(isAcademicYearFetchError){
-    console.log(academicYearError, 'academic year fetch error in addexam');
-  }
-
-  else if(isSubjectFetchError){
-    console.log(subjectError, 'subject fetch error in addexam');
   }
 
   else if(academicYearData){

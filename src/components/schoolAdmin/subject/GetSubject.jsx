@@ -12,10 +12,8 @@ const GetSubject = () => {
     const [selectedAcademicYear, setSelectedAcademicYear] = useState({startDate:'',endDate:''});
     const [selectedAcademicYearID, setSelectedAcademicYearID] = useState(null);
     const handleYearChange = (academicYear) =>{
-        console.log(academicYear,'year changed................');
         setSelectedAcademicYear({ startDate: academicYear.startDate, endDate: academicYear.endDate });
         setSelectedAcademicYearID(academicYear.id);
-        console.log(selectedAcademicYear);
         setYearDropDown(false)
         setClassQuery(false);
     }
@@ -26,7 +24,6 @@ const GetSubject = () => {
     const [classDropDown,setClassDropDown] = useState(false);
     const [classQuery, setClassQuery] = useState(true);
     const handleClassChange = (classRoom) =>{
-        console.log(classRoom,'classRoom changed');
         setSelectedClassID(classRoom._id);
         setSelectedClassName(classRoom.className);
         setClassDropDown(false);

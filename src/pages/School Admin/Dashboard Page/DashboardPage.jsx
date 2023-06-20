@@ -12,7 +12,6 @@ const DashboardPage = () => {
       }, []);
 
       if (statisticsQuery.isError) {
-        console.log(statisticsQuery.error);
         return (
             <div className="flex flex-col items-center justify-center h-screen">
               <h1 className="text-4xl font-bold mb-4">Oops! Something went wrong.</h1>

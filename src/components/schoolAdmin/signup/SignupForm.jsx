@@ -17,15 +17,11 @@ const SignupForm = () => {
 
 
     const onSubmit = async (data) =>{
-        console.log(register);
-        console.log(data);
         try{
           const res = await signup(data).unwrap()
-        console.log(res);
         navigate('/school_admin/login')
         }
         catch(error) {
-          console.log(error);
           if(error.status === 409){
             if(error.data.error === 'School Name Already Exist'){
               setIsSchoolNameTakenError(true)
@@ -47,35 +43,6 @@ const SignupForm = () => {
             }
           }
         }
-        
-        // axios.post(urls.schoolAdminSignup,data,{ headers: { "Content-Type":"application/json" }})
-        // .then((response)=>{
-        //   console.log(response,'ressffoodjfaj');
-        //   navigate('/school_admin/login')
-        // })
-        // .catch((err)=>{
-        //   console.log(err);
-        //   if(err.response.status === 409){
-        //     if(err.response.data.error === 'School Name Already Exist'){
-        //       setIsSchoolNameTakenError(true)
-        //       setTimeout(() => {
-        //         setIsSchoolNameTakenError(false);
-        //       }, 3000);
-        //     }
-        //     else if(err.response.data.error === 'Email Already Exist'){
-        //       setIsEmailTakenError(true)
-        //       setTimeout(() => {
-        //         setIsEmailTakenError(false);
-        //       }, 3000);
-        //     }
-        //     else if(err.response.data.error === 'Phone Already Exist'){
-        //       setIsPhoneTakenError(true)
-        //       setTimeout(() => {
-        //         setIsPhoneTakenError(false);
-        //       }, 3000);
-        //     }
-        //   }
-        // })
     }
 
     const toggleShowPassword = () => {

@@ -7,8 +7,6 @@ import FacultyModal from '../modal/FacultyModal';
 
 
 const FacultyExamSchedule = ({selectedYearID}) => {
-    console.count('faculty card loaded');
-    console.log(selectedYearID,'faculty card loaded');
     const [showModal, setShowModal] = useState(false);
     const [selectedSubjectID, setSelectedSubjectID] = useState(null);
     const [selectedExamID, setSelectedExamID] = useState(null);
@@ -44,9 +42,7 @@ const FacultyExamSchedule = ({selectedYearID}) => {
         }
     }
     else if(data){
-        console.log(data, 'data in faculty card');
         if (data?.subjects !== null) {
-            console.log(data.subjects);
             //format date
             const formatDate = (date) => {
                 const day = date.getDate();
@@ -58,13 +54,10 @@ const FacultyExamSchedule = ({selectedYearID}) => {
                 const formattedDate = formatDate(new Date(subjects.examDate));
                 return { ...subjects, examDateFormatted: formattedDate };
             })
-            console.log(examScheduledSubjects, 'exam scheduleed');
             const examNotScheduledSubjects = data.subjects.filter((subjects) => !subjects.examID);
-            console.log(examNotScheduledSubjects, 'not scheduled');
             const todayDate = new Date();
 
             const submitSubjectID = (subjectID, examID) => {
-                console.log(subjectID,'faunction called');
                 setSelectedSubjectID(subjectID);
                 setSelectedExamID(examID);
                 setShowModal(true);

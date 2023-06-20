@@ -19,7 +19,6 @@ const ClassInCharge = ({selectedYearID}) => {
         )
     }
     else if(isError){
-        console.log(error);
         if(error?.status === 401){
             toast.warn('Unauthorized Access', {
                 position: "bottom-center",
@@ -38,9 +37,7 @@ const ClassInCharge = ({selectedYearID}) => {
         }
     }
     else if(data){
-        console.log(data);
         const submitClassID = (classID) =>{
-            console.log(classID);
             navigate(`/faculty/class_overall_result/${classID}`);
         }
         return (

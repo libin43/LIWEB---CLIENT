@@ -1,25 +1,19 @@
 import React, { useState } from 'react'
-import { Navigate, Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useFacultyGetExamConductedClassesQuery } from '../../../api/faculty/apiSlice';
-import { setClassID } from '../../../redux/reducers/facultySlice';
 
 
 const FacultyModal = (props) => {
-    console.log('selected subject id in modal comp');
     const selectedSubjectID = props.selectedSubjectID
     const selectedExamID = props.selectedExamID
     const closeModal = props.onHideModal
-    console.count(props);
     const [selectedClass, setSelectedClass] = useState({ classID: '', className: '' });
     const [isExamMarkExist, setIsExamMarkExist] = useState(false)
     const navigate = useNavigate();
     const handleClassSelect = (selectedClass) => {
-        console.log(selectedClass.classID);
         setSelectedClass({ classID: selectedClass.classID, className: selectedClass.className });
         setIsExamMarkExist(selectedClass.examMarkPublished)
-        console.log(selectedClass, 'its selected class');
      
     }
     const handleEnterMarks = () => {
@@ -27,7 +21,6 @@ const FacultyModal = (props) => {
     }
 
     const handleViewMarks = () => {
-        console.log(selectedClass, 'submit called');
         navigate(`/faculty/examination/exam_mark_view/students?className=${selectedClass.className}&classId=${selectedClass.classID}&subjectId=${selectedSubjectID}&examId=${selectedExamID}`)
     }
 
@@ -37,7 +30,6 @@ const FacultyModal = (props) => {
     const { data, isLoading, isFetching, isError, error } = useFacultyGetExamConductedClassesQuery({selectedSubjectID, selectedExamID});
 
     if (isLoading) {
-        console.log(isLoading, 'loading classes modal');
         return (
             <div role="status" className='flex justify-center items-center h-screen'>
                 <svg aria-hidden="true" className="w-16 h-16 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -49,7 +41,6 @@ const FacultyModal = (props) => {
         )
     }
     else if (isError) {
-        console.log(error);
         if (error?.status === 401) {
             toast.warn('Unauthorized Access', {
                 position: "bottom-center",
@@ -68,7 +59,6 @@ const FacultyModal = (props) => {
         }
     }
     else if (data) {
-        console.log(data, 'data in faculty modal');
         return (
             <div className="modal fixed w-full h-full top-0 left-0 flex items-center justify-center">
                 <div className="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>

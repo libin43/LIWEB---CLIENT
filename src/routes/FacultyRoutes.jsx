@@ -9,12 +9,13 @@ import ClassResultPage from '../pages/Faculty/Class Result Page/ClassResultPage'
 import FacultyDashboardPage from '../pages/Faculty/Dashboard Page/FacultyDashboardPage';
 import FacultyProfilePage from '../pages/Faculty/Profile Page/FacultyProfilePage';
 import ProtectedRoutes from '../auth/ProtectedRoutes';
+import SubjectResultPage from '../pages/Faculty/Class Result Page/SubjectResultPage';
+
 
 //Errors
 import PageNotFound from '../components/common/PageNotFound';
 import { ErrorBoundary } from 'react-error-boundary';
 import CommonError from '../components/common/CommonError';
-import SubjectResultPage from '../pages/Faculty/Class Result Page/SubjectResultPage';
 
 
 const FacultyRoutes = () => {

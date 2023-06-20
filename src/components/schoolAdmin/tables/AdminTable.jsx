@@ -27,7 +27,6 @@ const AdminTable = ({data, isLoading, isError, error,}) => {
         }
     }
     else if(data){
-        console.log(data.subjects.length,'sjubje data');
         return (
             <>
               <Table.Body className="divide-y">
@@ -63,8 +62,7 @@ const AdminTable = ({data, isLoading, isError, error,}) => {
                 )}
               </Table.Body>
             </>
-          );
-          
+          ); 
     }
 }
 

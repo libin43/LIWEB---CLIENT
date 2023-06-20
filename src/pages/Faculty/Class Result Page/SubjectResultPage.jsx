@@ -25,7 +25,6 @@ const SubjectResultPage = () => {
     }
 
     if(data){
-        console.log(data);
         return (
             <div>
                 <ExamScoreViewTable data = {data.response}/>

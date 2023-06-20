@@ -49,7 +49,6 @@ const AddAcademicYear = () => {
             return;
           }
         const data = {'startDate': startDate, 'endDate' : endDate, 'schoolName': schoolName}
-        console.log(data);
         const startMs = startDate.getTime();
         const endMs = endDate.getTime();
 
@@ -57,7 +56,6 @@ const AddAcademicYear = () => {
   if (endMs > startMs && startMs !== endMs) {
     try{
         const res = await addAcademicYear(data).unwrap()
-        console.log(res);
        if(res.success){
         toast.success('academic year added!', {
             position: "bottom-center",
@@ -79,7 +77,6 @@ const AddAcademicYear = () => {
             console.log('Need to logout');
             localStorage.removeItem('setAdminToken')
             navigate('/school_admin/login')
-
         }
     }
   } else {

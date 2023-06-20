@@ -18,8 +18,6 @@ const Home = () => {
     { name: "Student Management", link: "/school_admin/get_all_student", icon: FaUserGraduate },
     { name: "Subject Management", link: "/school_admin/get_subject", icon: FaBookOpen },
     { name: "Exam Management", link: "/school_admin/add_exam", icon: FaClipboardList },
-    // { name: "Saved", link: "/", icon: AiOutlineHeart, margin: true },
-    // { name: "Setting", link: "/", icon: RiSettings4Line },
   ];
   const [open, setOpen] = useState(false);
   return (

@@ -31,9 +31,7 @@ const AddSubject = () => {
     if (Object.keys(errors).length != 0) {
         if ('vibrate' in navigator) {
             window.navigator.vibrate(1000)
-            console.log('vibration is there');
         } else {
-            console.log('no vibration');
         }
     }
 
@@ -48,7 +46,6 @@ const AddSubject = () => {
         const subject = { ...data, selectedClass }
         try {
             const res = await addSubject(subject).unwrap()
-            console.log(res);
             if (res.success) {
                 setSkip(true)
                 toast.success(res.message, {
@@ -65,7 +62,6 @@ const AddSubject = () => {
         }
         catch (error) {
             setSelectedClass([]);
-            console.log(error);
             if (error.status === 401) {
                 toast.warn('Unauthorized Access', {
                     position: "bottom-center",
@@ -122,8 +118,6 @@ const AddSubject = () => {
         )
     }
     else if (isFetchAcademicYearError || isFetchClassError) {
-        console.log(academicYearError, 'hello');
-        console.log(classError, 'hai');
         if (academicYearError?.status === 401 || classError?.status === 401) {
             console.log('error in fetching called in subject');
             toast.warn('Unauthorized Access', {
@@ -143,7 +137,6 @@ const AddSubject = () => {
 
     else if (classData) {
         setSkip(true)
-        console.log(classData, 'class fetch in addSubject');
         setClassRoom(classData.classRoom)
     }
 

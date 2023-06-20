@@ -15,7 +15,6 @@ const FacultyDashboardPage = () => {
 
     useEffect(()=>{
         if(optedYear.id !==''){
-          console.log(optedYear.id,'lgogogosjidfgaij');
             setStatsQuery(false);
         }
     },[optedYear.id])
@@ -23,7 +22,6 @@ const FacultyDashboardPage = () => {
     const {data, isFetching, isError, error} = useFacultyDashboardStatisticsQuery(optedYear.id,{skip:statsQuery});
 
   if (isError) {
-    console.log(error, 'error in dashboard page');
     if(error?.status === 401){
       toast.warn('Unauthorized Access', {
         position: "bottom-center",

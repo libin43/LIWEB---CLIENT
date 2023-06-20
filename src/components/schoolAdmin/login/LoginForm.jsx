@@ -30,7 +30,6 @@ const LoginForm = () => {
     setIsLoading(true)
     try {
       const res = await login(data).unwrap()
-      console.log(res,'its response from login');
       if (res.success) {
         dispatch(setSchoolAdminToken(res))
         toast.success(' signin success!', {
@@ -48,7 +47,6 @@ const LoginForm = () => {
     }
     catch (error) {
       setIsLoading(false)
-      console.log(error);
       if (error.code === 'ERR_NETWORK') {
         console.log('Server is down');
       }

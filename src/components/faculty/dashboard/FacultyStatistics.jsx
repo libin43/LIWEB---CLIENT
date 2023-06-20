@@ -2,9 +2,6 @@ import React from 'react'
 import { IoBagHandle, IoPieChart, IoPeople, IoCart } from 'react-icons/io5'
 
 const FacultyStatistics = ({data}) => {
-    console.log(data,'stat data');
-
-    console.count('fac stats');
 
     return (
         <div className="flex flex-wrap mt-8 p-6 md:p-4 gap-4 sm:gap-8 md:gap-12">

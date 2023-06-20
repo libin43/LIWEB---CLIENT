@@ -87,11 +87,9 @@ const FacultyProfile = () => {
     }
 
     const handleImageChange = (event) => {
-        console.log('image uplaod called');
         const file = event.target.files[0];
         setSelectedFile(file);
         if (file) {
-        console.log(file,'filename');
 
             //File reader api provides reading contents of file async
             const reader = new FileReader();
@@ -125,10 +123,8 @@ const FacultyProfile = () => {
         formData.append('facultyImage', selectedFile);
         try{
             const res = await uploadProfileImage(formData).unwrap();
-            console.log(res,'res of updated pro');
             setSelectedFile(null);
         } catch(error) {
-            console.log(error);
             if(error?.status === 401){
                 authError();
             }
@@ -139,14 +135,12 @@ const FacultyProfile = () => {
         closeModal();
         try{
             const res = await deleteImage(imageName).unwrap()
-            console.log(res,'res in delete');
             if(res?.success){
                 setImageName(res.success.facultyImage)
                 setSelectedFile(null);
             }
         }
         catch(error) {
-            console.log(error);
             if(error?.status === 401){
                 authError();
             }
@@ -154,15 +148,12 @@ const FacultyProfile = () => {
       };
 
     const handleSave = async () => {
-        console.log('save called');
-        console.log(formData);
         try{
             const res = await updatedProfile(formData).unwrap();
-            console.log(res);
         }
         catch(error) {
-            console.log(error);
             if(error?.status === 401){
+                authError();
             }
         }
     }
@@ -182,7 +173,6 @@ const FacultyProfile = () => {
         console.log(error);
     }
     if(data){
-        console.log(data, 'get fac info');
         return (
             <div className='m-10'>
                 <div className="bg-cyan-900 text-white py-8 px-4 sm:px-6 lg:px-8">

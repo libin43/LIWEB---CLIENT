@@ -3,15 +3,12 @@ import {toast} from 'react-toastify'
 import { useFacultyGetAcademicYearQuery, useFacultyGetClassByAcademicYearQuery, useFacultyGetStudentTotalExamResultsQuery, useFacultyPromoteStudentsMutation } from '../../../api/faculty/apiSlice';
 
 const ClassOverallResult = ({classId}) => {
-    console.count(classId, 'in class overall comp');
     const [showAcademicYear, setShowAcademicYear] = useState(false);
     const [yearQuery,setYearQuery] = useState(true);
     const [selectedYear, setSelectedYear] = useState('');
     const [classRoomQuery, setClassRoomQuery] = useState(true);
     const [selectedClass, setSelectedClass] = useState('');
     const [showMoveStudents, setShowMoveStudents] = useState(false);
-
-    console.log(selectedClass, 'fasdjkajjlafksdjlk');
 
     const toggleAcademicYear = () => {
     setYearQuery(false);
@@ -20,28 +17,20 @@ const ClassOverallResult = ({classId}) => {
     };
 
   const handleChange = (event) => {
-    console.log(event.target.value,'vaue of year');
     setSelectedYear(event.target.value);
     setClassRoomQuery(false);
   };
 
-  const handleYearSelection = () => {
-
-  };
 
   const handleClassChange = (e) => {
-    console.log(e.target.value,'alert called');
     setSelectedClass(e.target.value)
     setShowMoveStudents(true)
   }
 
   const handlePromoteStudents = async (students, currentClassID) => {
     const data = {students,currentClassID,selectedClass}
-    console.log(data)
     try{
-        console.log(data);
         const res = await promoteStudents(data).unwrap()
-        console.log(res);
     }
     catch(error) {
         console.log(error);
@@ -135,7 +124,6 @@ const ClassOverallResult = ({classId}) => {
                                     className='pl-5'
                                     value={selectedYear}
                                     onChange={handleChange}
-                                    onBlur={handleYearSelection}
                                 >
                                     <option value="" disabled>Select academic year</option>
                                     {

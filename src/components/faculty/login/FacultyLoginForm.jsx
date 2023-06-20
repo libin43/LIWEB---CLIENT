@@ -30,7 +30,6 @@ const FacultyLoginForm = () => {
         setIsLoading(true);
         try{
             const res = await facultyLogin(data).unwrap()
-            console.log(res,'faculty logged in');
             if (res.success) {
 
                 dispatch(setFaultyToken(res))
@@ -64,9 +63,6 @@ const FacultyLoginForm = () => {
                 setTimeout(() => {
                     setEmailError(false);
                 }, 3000);
-            }
-            else {
-                console.log(error, 'RTK error');
             }
         }
     }

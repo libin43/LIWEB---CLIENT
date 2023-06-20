@@ -9,7 +9,6 @@ import ClassInCharge from '../../../components/faculty/classIncharge/ClassInChar
 const ClassInchargePage = () => {
     const auth = localStorage.getItem('facultyToken');
     const { optedYear } = useSelector(selectFaculty);
-    console.count('classincharge page');
     if (auth !== '') {
         return (
             <div>

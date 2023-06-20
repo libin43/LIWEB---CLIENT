@@ -8,8 +8,8 @@ import { useFacultyGetAcademicYearQuery } from '../../../api/faculty/apiSlice';
 import { setAcademicYearID } from '../../../redux/reducers/facultySlice';
 
 const FacultySelectYear = () => {
-  console.count('select year component');
-  const { optedYear } = useSelector(selectFaculty);
+
+ const { optedYear } = useSelector(selectFaculty);
 
     const {data: academicYearData, isLoading: isFetchingAcademicYearData, isError: isAcademicYearFetchError, error: academicYearError} = useFacultyGetAcademicYearQuery();
     const dispatch = useDispatch()
@@ -42,7 +42,6 @@ const FacultySelectYear = () => {
         )
     }
     if(isAcademicYearFetchError){
-        console.log(academicYearError);
         if(academicYearError?.status === 401){
             toast.warn('Unauthorized Access', {
                 position: "bottom-center",
@@ -61,7 +60,6 @@ const FacultySelectYear = () => {
         }
     }
     if(academicYearData){
-      console.log(academicYearData);
         return (
             <div className="relative mx-auto mt-10 w-4/5 md:w-5/12 z-10">
           <h3>Select to view data</h3>

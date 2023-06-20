@@ -9,7 +9,6 @@ const ExamScoreInputPage = () => {
     const classID = queryParams.get('classId')
     const subjectID = queryParams.get('subjectId');
     const examID = queryParams.get('examId');
-    console.log(classID,'its class id from query');
 
     const {data, isLoading, isError, error} = useFacultyGetStudentsByClassIDQuery({classID,subjectID,examID});
     
@@ -25,7 +24,6 @@ const ExamScoreInputPage = () => {
       )
       }
       if(isError){
-        console.log(error);
         if(error?.status === 401){
           localStorage.removeItem('facultyToken');
           return(

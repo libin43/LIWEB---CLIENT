@@ -25,13 +25,11 @@ const OtpForm = () => {
         const data = JSON.stringify({email})
         try{
             const res = await verifyEmail(data).unwrap();
-            console.log(res);
             const {email} = res.response.otpRecievedEmail
             setOtpRecievedEmail(email)
             setisOtpInputDisplayed(!isOtpInputDisplayed)
         }
         catch(error) {
-            console.log(error);
             setIsLoading(false)
             if(error?.status === 400){
                 setError(true)
@@ -40,25 +38,9 @@ const OtpForm = () => {
                   }, 3000);
             }
         }
-        
-        // axios.post(urls.verifyEmailForOtp,body,{ headers: { "Content-Type":"application/json" } })
-        // .then((response) => {
-        //    console.log(response);
-        //    const {email} = response.data.response.otpRecievedEmail
-        //    setOtpRecievedEmail(email)
-        //    setisOtpInputDisplayed(!isOtpInputDisplayed)
-        // }).catch((err)=>{
-        //     console.log(err);
-        //     setIsLoading(false)
-        //     if(err.response?.status === 400){
-        //         setError(true)
-        //     }
-            
-        // })
     }
 
     const handleInputChange = (e) => {
-        console.log(e.target.value.length);
         if(e.target.value.length === e.target.maxLength){
             switch (e.target) {
                 case inputRef1.current:
@@ -75,13 +57,11 @@ const OtpForm = () => {
     }
 
     const handleOtpSubmit = async (event) => {
-        console.log('otp submit called');
         event.preventDefault();
         const otp = `${inputRef1.current.value}${inputRef2.current.value}${inputRef3.current.value}${inputRef4.current.value}`
         const data = JSON.stringify([{otp},{otpRecievedEmail}])
         try{
             const res = await verifyOtp(data).unwrap();
-            console.log(res);
             if(res.success){
                 localStorage.setItem('token',res.token)
                 console.log(res.token);
@@ -89,7 +69,6 @@ const OtpForm = () => {
               }
         }
         catch(error){
-            console.log(error);
             if(error.status === 401){
                 setOtpError(true)
                 setTimeout(() => {
@@ -97,18 +76,6 @@ const OtpForm = () => {
                 }, 3000);
             }
         }
-        // axios.post(urls.verifyOtp,body,{headers: { "Content-Type":"application/json" }})
-        // .then((response) => {
-        //   console.log(response);
-        //   if(response.data.success){
-        //     localStorage.setItem('token',response.data.token)
-        //     console.log(response.data.token);
-        //     navigate('/school_admin/home');
-        //   }
-        // })
-        // .catch((err) => {
-        //     console.log(err);
-        // })
     }
 
     return (

@@ -9,7 +9,6 @@ import Sidebar from '../components/schoolAdmin/sidebar/Sidebar'
 
 
 const ProtectedRoutes = (props) => {
-  console.count('calling in  protected routes');
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -21,7 +20,6 @@ const ProtectedRoutes = (props) => {
           try{
             const decodedToken = decode(schoolAdminToken);
             if (decodedToken.exp * 1000 < new Date().getTime()) {
-              console.log('toekn expireed');
               return null;
             }
             return schoolAdminToken;
@@ -37,7 +35,6 @@ const ProtectedRoutes = (props) => {
           try{
             const decodedToken = decode(facultytoken);
             if (decodedToken.exp * 1000 < new Date().getTime()) {
-              console.log('toekn expireed');
               return null;
             }
             return facultytoken;
@@ -55,9 +52,6 @@ const ProtectedRoutes = (props) => {
   useEffect(()=>{
     // auth()
   },[location])
-
-  console.log(props.role, 'its the role');
-  console.log(auth, 'auth');
 
   return (
     <>

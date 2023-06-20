@@ -13,10 +13,8 @@ const AddClassRoom = () => {
     } = useForm();
     const navigate = useNavigate();
     const onSubmit = async (data) => {
-        console.log(data);
         try {
             const res = await addClass(data).unwrap()
-            console.log(res);
             if (res.success) {
                 toast.success('class room added!', {
                     position: "bottom-center",
@@ -75,7 +73,6 @@ const AddClassRoom = () => {
         )
     }
     else if (isError) {
-        console.log(error, 'in addclassroom');
         if (error.status === 401) {
             localStorage.removeItem('schoolAdminToken');
             toast.warn('Unauthorized Access', {
@@ -92,7 +89,6 @@ const AddClassRoom = () => {
         }
     }
     else if (data) {
-        console.log(data, 'add classroom');
         return (
             <div className='addClassRoom'>
                 <div className="m-3 ml-20 absolute inset-0 text-xl text-gray-900 font-semibold">

@@ -17,10 +17,8 @@ const AddFaculty = () => {
     } = useForm();
 
     const onSubmit = async (data) => {
-        console.log(data);
         try {
             const res = await addFaculty(data).unwrap();
-            console.log(res);
             if (res.success) {
                 toast.success('faculty added!', {
                     position: "bottom-center",
@@ -35,7 +33,6 @@ const AddFaculty = () => {
             }
         }
         catch (error) {
-            console.log(error);
             if (error.status === 401) {
                 localStorage.removeItem('schoolAdminToken')
                 navigate('/school_admin/login')

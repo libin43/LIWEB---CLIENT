@@ -4,7 +4,6 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { useGetDashboardAdmissionGraphQuery } from '../../../api/schoolAdmin/apiSlice';
 
 const AdmissionChart = () => {
-  console.count('admission chart render');
   const [startIndex, setStartIndex] = useState(0);
   const admissionGraphQuery = useGetDashboardAdmissionGraphQuery({ startIndex });
   const data = admissionGraphQuery.data?.admissions[0]?.data || [];

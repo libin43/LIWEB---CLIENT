@@ -1,7 +1,6 @@
 import React from 'react'
 
 const ExamScoreViewTable = ({data}) => {
-    console.log(data);
     const { _id: classID, className, status } = data.classData
     const { _id: examID, examName } = data.examData
     const { _id: subjectID, subjectName, subjectCode } = data.subjectData

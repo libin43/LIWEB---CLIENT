@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-console.log('fac reducer hitting');
 
 const facultyToken = localStorage.getItem('facultyToken') ?? '';
 const parsedData = facultyToken ? facultyToken: null;
@@ -17,25 +16,19 @@ export const facultySlice = createSlice({
     reducers: {
         setFaultyToken: (state, action) => {
             localStorage.setItem('facultyToken',action.payload.token);
-            console.log(action,'hit in reducer of faculty');
-            // localStorage.setItem('schoolAdminToken', action.payload.token)
             state.facultyToken = action.payload.token;
         },
         setAcademicYearID: (state, action) => {
-            console.log(action,'hit in reducer of academic year');
-            // state.academicYearID = action.payload.id;
             state.optedYear.id = action.payload.id
             state.optedYear.startDate = action.payload.startDate
             state.optedYear.endDate = action.payload.endDate
         },
         setClassID: (state, action) => {
-            console.log(action,'hit in reducer of class');
             state.classID = action.payload.classID;
         },
         clearFacultyToken: (state) => {
             state.facultyToken = '';
             localStorage.removeItem('facultyToken')
-            console.log('fac token removed');
         }
     },
 })

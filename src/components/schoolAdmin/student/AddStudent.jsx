@@ -32,11 +32,8 @@ const AddStudent = () => {
     }
 
     const onSubmit = async (data) => {
-        console.log('on sugmit called in studet');
-        console.log(data);
         try {
             const res = await addStudent(data).unwrap();
-            console.log(res);
             if (res.success) {
                 toast.success(res.message, {
                     position: "bottom-center",
@@ -51,7 +48,6 @@ const AddStudent = () => {
             }
         }
         catch (error) {
-            console.log(error);
             if (error.status === 401) {
                 console.log('toast in addstudent calling');
                 toast.warn('Unauthorized Access', {
@@ -95,10 +91,7 @@ const AddStudent = () => {
     }
 
     else if (isAcademicYearError || isFetchClassError) {
-        console.log(academicYearError, 'Academic year fetch error');
-        console.log(classError, 'Class fetch error');
         if (academicYearError?.status === 401 || classError?.status === 401) {
-            console.log('toast in addstudent calling');
             toast.warn('Unauthorized Access', {
                 position: "bottom-center",
                 autoClose: 2000,
@@ -115,9 +108,7 @@ const AddStudent = () => {
     }
 
     else if (isFetchClassError) {
-        console.log(classError, 'Academic year fetch error');
         if (classError.status === 401) {
-            console.log('toast in addstudent calling');
             toast.warn('Unauthorized Access', {
                 position: "bottom-center",
                 autoClose: 2000,
@@ -135,7 +126,6 @@ const AddStudent = () => {
 
     else if (fetchClass) {
         setSkip(true)
-        console.log(fetchClass, 'class fetch in addStudent');
         if (fetchClass?.success) {
             setClassRoom(fetchClass.classRoom)
         }

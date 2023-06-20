@@ -68,7 +68,6 @@ const NavbarAdmin = () => {
   }
   else if(isError){
     if(error.status === 401){
-      console.log('toast called in navbar');
       toast.warn('Unauthorized Access', {
           position: "bottom-center",
           autoClose: 2000,

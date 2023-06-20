@@ -42,7 +42,6 @@ const GetStudent = () => {
 
 
     const handleYearChange = (academicYear) =>{
-        console.log(academicYear,'year changed................');
         setSelectAcademicYearStartDate(academicYear.startDate);
         setSelectAcademicYearEndDate(academicYear.endDate);
         setSelectAcademicYearID(academicYear.id);
@@ -51,15 +50,12 @@ const GetStudent = () => {
     }
     const handleClassChange = (classRoom) =>{
         if(filteredStudent?.length>0){
-            console.log('filter is set to empty');
             setFilterEmpty(true);
         }
         if(classRoom._id !== selectClass){
-        console.log(classRoom, 'its index');
         if(currentStudent!=null){
             setCurrentStudent(null);
         }
-        console.log(classRoom,'classRoom changed');
         setSelectClass(classRoom._id);
         setSelectClassName(classRoom.className);
         setClassDropDown(false);
@@ -72,20 +68,17 @@ const GetStudent = () => {
     }
     const onPageChange = (e) =>{
         if (e !== currentPage) {
-            console.log(e,'Normal Page/////////');
             setCurrentPage(e);
             setStudentQuery(false);
           }
     }
     const handleSearch = (searchItem) =>{
-        console.log(searchItem,'///////////////////////');
         setSearchKey(searchItem);
         setCurrentFilterPage(1);
         setSearchQuery(false);
     }
     const onSearchPageChange = (e) =>{
         if (e !== currentFilterPage) {
-            console.log(e,'Search Page/////////');
             setCurrentFilterPage(e);
             setSearchQuery(false);
         }
@@ -93,10 +86,8 @@ const GetStudent = () => {
     const handleSearchInputChange = (e) =>{
         setFilterEmpty(false)
         if(e.target.value ===''){
-            console.log('input empty');
             setFilterEmpty(true);
         }
-        console.log(e.target.value,'caLLED onsearch');
         setInputSearch(e.target.value);
     }
     const onSearchClose = () =>{
@@ -153,7 +144,6 @@ const studentTable = () => {
 //CLASS DROPDOWN
 const classSelect = () => {
     if(isFetchClassError){
-        console.log(classError);
         return(
             <>
             <p>Error while fetching class data</p>
@@ -161,7 +151,6 @@ const classSelect = () => {
         );
     }
     else if(classData) {
-        console.log(classData, 'its class data');
         return (
             <div className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-1 mb-6 md:w-1/2 w-full dark:bg-stone-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
             <div
@@ -255,7 +244,6 @@ const searchTable = () => {
 
     useEffect(() => {
         const currentStudentArray = studentData || [];
-        console.log(studentData,'its student data');
         setCurrentStudent(currentStudentArray);
         const classTotal = studentData?.classStrength || 0;
         const pageReq = Math.ceil(classTotal/itemsPerPage)
@@ -268,7 +256,6 @@ const searchTable = () => {
 
       useEffect(() => {
         if(filterEmpty){
-            console.log('called in empty filter');
             setFilteredStudent(null);
         }
         else{
@@ -283,10 +270,8 @@ const searchTable = () => {
     async function accessControl(status, studentID) {
 
         const data = { status, studentID };
-        console.log(data, 'accessssssssssssss');
         try {
             const res = await blockStatus(data).unwrap();
-            console.log(res, 'access control updated');
         }
         catch (error) {
             console.log(error);
